@@ -3,9 +3,14 @@ Type: Package
 Title: Alluvial Diagrams
 Version: 0.1-0
 Date: 2013-10-29
-Author@R: person("Michal", "Bojanowski", role=c("aut", "cre"), email="michal2992@gmail.com")
+Authors@R: person("Michal", "Bojanowski", role=c("aut", "cre"),
+    email="michal2992@gmail.com")
 Description: Creating alluvial diagrams
-Suggests: devtools, testthat
+Suggests:
+    devtools,
+    testthat
 License: GPL-3
 LazyLoad: yes
 LazyData: yes
+Collate:
+    'alluvial.R'
