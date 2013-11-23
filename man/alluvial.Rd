@@ -1,46 +1,64 @@
 \name{alluvial}
 \alias{alluvial}
-\title{Alluvial diagrams}
+\title{Alluvial diagram}
 \usage{
   alluvial(..., freq, col = "gray", border = 0, layer,
     alpha = 0.5, gap.width = 0.05, xw = 0.1, cw = 0.1)
 }
 \arguments{
-  \item{...}{vectors or data frames with the same number of
-  observations}
+  \item{...}{vectors or data frames, all for the same
+  number of observations}
 
-  \item{freq}{numeric vector with frequencies}
+  \item{freq}{numeric, vector of frequencies of the same
+  length as the number of observations}
 
-  \item{col}{colors of the stripes}
+  \item{col}{vector of colors of the stripes}
 
-  \item{border}{border colors}
+  \item{border}{vector of border colors for the stripes}
 
-  \item{layer}{layer numbers determining plotting order}
+  \item{layer}{numeric, order of drawing of the stripes}
 
-  \item{alpha}{numeric, alpha transparency factor}
+  \item{alpha}{numeric, vector of transparency of the
+  stripes}
 
-  \item{gap.width}{numeric, widith of the inter-category
-  gap}
+  \item{gap.width}{numeric, relative width of
+  inter-category gaps}
 
-  \item{xw}{numeric, location of the control points
-  relative to axes}
+  \item{xw}{numeric, the distance from the set axis to the
+  control points of the xspline}
 
-  \item{cw}{numeric, width of the category blocks}
+  \item{cw}{numeric, width of the category axis}
 }
 \value{
-  Nothing of interest but the plot is plotted.
+  Nothing
 }
 \description{
-  Creating alluvial diagrams.
+  Drawing alluvial diagrams also known as parallel set
+  plots.
+}
+\details{
+  Still under development!
 }
 \examples{
-# Built-in Titanic data as a data frame
+# Titanic data
 tit <- as.data.frame(Titanic)
 
-alluvial( tit[,1:4], freq=tit$Freq )
+# 2d
+tit2d <- aggregate( Freq ~ Class + Survived, data=tit, sum)
+alluvial( tit2d[,1:2], freq=tit2d$Freq, xw=0.0, alpha=0.8,
+         gap.width=0.1, col= "steelblue", border="white",
+         layer = tit2d$Survived != "Yes" )
 
-# highlighting passangers who survived
+# 3d
+tit3d <- aggregate( Freq ~ Class + Sex + Survived, data=tit, sum)
+
+alluvial(tit3d[,1:3], freq=tit3d$Freq, alpha=1, xw=0.2,
+         col=ifelse( tit3d$Survived == "No", "red", "gray"),
+         layer = tit3d$Sex != "Female",
+         border="white")
+
+# 4d
 alluvial( tit[,1:4], freq=tit$Freq, border=NA,
-         col=ifelse( tit$Survived == "Yes", "lightskyblue", "violet") ) 
+         col=ifelse( tit$Class == "3rd" & tit$Sex == "Male", "red", "gray") )
 }
 

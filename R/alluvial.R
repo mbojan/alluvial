@@ -1,18 +1,20 @@
-#' Alluvial diagrams
+#' Alluvial diagram
 #'
-#' Creating alluvial diagrams.
+#' Drawing alluvial diagrams also known as parallel set plots.
 #'
-#' @param ... vectors or data frames with the same number of observations
-#' @param freq numeric vector with frequencies
-#' @param col colors of the stripes
-#' @param border border colors
-#' @param layer layer numbers determining plotting order
-#' @param alpha numeric, alpha transparency factor
-#' @param gap.width numeric, widith of the inter-category gap
-#' @param xw numeric, location of the control points relative to axes
-#' @param cw numeric, width of the category blocks
+#' Still under development!
 #'
-#' @return Nothing of interest but the plot is plotted.
+#' @param ... vectors or data frames, all for the same number of observations
+#' @param freq numeric, vector of frequencies of the same length as the number of observations
+#' @param col vector of colors of the stripes
+#' @param border vector of border colors for the stripes
+#' @param layer numeric, order of drawing of the stripes
+#' @param alpha numeric, vector of transparency of the stripes
+#' @param gap.width numeric, relative width of inter-category gaps
+#' @param xw numeric, the distance from the set axis to the control points of the xspline
+#' @param cw numeric, width of the category axis
+#'
+#' @return Nothing
 #'
 #' @export
 #'
@@ -93,7 +95,7 @@ alluvial <- function( ..., freq, col="gray", border=0, layer, alpha=0.5,
     }
   }           
   # X axis
-  axis(1, at= rep(c(-cw, cw), 3) + rep(seq_along(d), each=2),
+  axis(1, at= rep(c(-cw, cw), ncol(d)) + rep(seq_along(d), each=2),
        line=0.5, col="white", col.ticks="black", labels=FALSE)
   axis(1, at=seq_along(d), tick=FALSE, labels=names(d))
   par(op)
