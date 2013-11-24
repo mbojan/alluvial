@@ -12,7 +12,7 @@ d <- as.data.frame(dset, stringsAsFactors=FALSE)
 d$yrbirth <- as.numeric(dset$yrbirth)
 waves <- c(1988, 1993, 1998, 2003, 2008)
 d[ paste("w", waves, sep="") ] <- lapply(d[paste("w", waves, sep="")], function(x) x=="Yes")
-chvars <- grep("vote", names(d), value=TRUE)
+chvars <- c("polpanid", grep("vote", names(d), value=TRUE))
 d[chvars] <- lapply(d[chvars], as.character)
 
 
