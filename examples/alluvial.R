@@ -18,3 +18,16 @@ alluvial(tit3d[,1:3], freq=tit3d$Freq, alpha=1, xw=0.2,
 # 4d
 alluvial( tit[,1:4], freq=tit$Freq, border=NA,
          col=ifelse( tit$Class == "3rd" & tit$Sex == "Male", "red", "gray") )
+
+
+### POLPAN data
+if(FALSE)
+{
+# POLPAN panel sample
+vnames <- grep("w[0-9]+", names(d), value=TRUE)
+z <- aggregate( rep(1, nrow(d)), d[ , vnames ], sum)
+# 1988 respondents
+alluvial(z[,vnames], freq=z$x, col=ifelse(z$w1988, "red", "gray"))
+# 2008 respondents
+alluvial(z[,vnames], freq=z$x, col=ifelse(z$w2008, "red", "gray"))
+}
