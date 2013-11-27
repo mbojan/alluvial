@@ -3,8 +3,10 @@ library(memisc)
 f <- spss.system.file("~/Data/polpan/POLPAN1988_2008-spss70.sav")
 
 dset <- subset(f, select=c(polpanid=POLPANID, yrbirth=YRBIRTH, gender=GENDER,
+                           # Wave indicators
                            w1988=WAVE1988, w1993=WAVE1993, w1998=WAVE1998,
                            w2003=WAVE2003, w2008=WAVE2008,
+                           # Election vars
                            par1989vote=YW18, par1989choice=YW19, # 1989 parlament
                            pr1990vote=YW20, pr1990choice1=YW21_1, pr1990choice2=YW21_2, # 1990 president
                            par1991vote=YW22, par1991choice=YW23, # 1991 parlament
@@ -12,7 +14,7 @@ dset <- subset(f, select=c(polpanid=POLPANID, yrbirth=YRBIRTH, gender=GENDER,
                            par1997vote=XW11, par1997choice=XW12, # 1997 parlament
                            xw14a=XW14A, # ?  
                            par2001vote=WW09, par2001choice=WW10, # 2001 parlament
-                           par2005vote=WW15, par2005choice=WW16, # 2005 parlament
+                           par2005vote=VW15, par2005choice=VW16, # 2005 parlament
                            par2007vote=VW17, par2007choice=VW18 # 2007 parlament
                            ),
                stringsAsFactors=FALSE)
