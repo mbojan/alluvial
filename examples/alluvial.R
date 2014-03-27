@@ -7,6 +7,12 @@ alluvial( tit2d[,1:2], freq=tit2d$Freq, xw=0.0, alpha=0.8,
          gap.width=0.1, col= "steelblue", border="white",
          layer = tit2d$Survived != "Yes" )
 
+alluvial( tit2d[,1:2], freq=tit2d$Freq, 
+         hide=tit2d$Freq < 150,
+         xw=0.0, alpha=0.8,
+         gap.width=0.1, col= "steelblue", border="white",
+         layer = tit2d$Survived != "Yes" )
+
 # 3d
 tit3d <- aggregate( Freq ~ Class + Sex + Survived, data=tit, sum)
 
@@ -17,6 +23,7 @@ alluvial(tit3d[,1:3], freq=tit3d$Freq, alpha=1, xw=0.2,
 
 # 4d
 alluvial( tit[,1:4], freq=tit$Freq, border=NA,
+         hide = tit$Freq < quantile(tit$Freq, .50),
          col=ifelse( tit$Class == "3rd" & tit$Sex == "Male", "red", "gray") )
 
 
@@ -26,6 +33,7 @@ if(FALSE)
 # POLPAN panel sample
 vnames <- grep("w[0-9]+", names(d), value=TRUE)
 z <- aggregate( rep(1, nrow(d)), d[ , vnames ], sum)
+z[,vnames] <- lapply( z[vnames], as.character)
 # 1988 respondents
 alluvial(z[,vnames], freq=z$x, col=ifelse(z$w1988, "red", "gray"))
 # 2008 respondents

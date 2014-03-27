@@ -12,5 +12,3 @@ Suggests:
 License: GPL-3
 LazyLoad: yes
 LazyData: yes
-Collate:
-    'alluvial.R'

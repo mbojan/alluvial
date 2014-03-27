@@ -9,6 +9,7 @@
 #' @param col vector of colors of the stripes
 #' @param border vector of border colors for the stripes
 #' @param layer numeric, order of drawing of the stripes
+#' @param hide logical, should particular stripe be plotted
 #' @param alpha numeric, vector of transparency of the stripes
 #' @param gap.width numeric, relative width of inter-category gaps
 #' @param xw numeric, the distance from the set axis to the control points of the xspline
@@ -20,11 +21,11 @@
 #'
 #' @example examples/alluvial.R
 
-alluvial <- function( ..., freq, col="gray", border=0, layer, alpha=0.5,
+alluvial <- function( ..., freq, col="gray", border=0, layer, hide=FALSE, alpha=0.5,
                      gap.width=0.05, xw=0.1, cw=0.1 )
 {
   # Data and graphical parameters
-  p <- data.frame( ..., freq=freq, col, alpha, border, stringsAsFactors=FALSE)
+  p <- data.frame( ..., freq=freq, col, alpha, border, hide, stringsAsFactors=FALSE)
   n <- nrow(p)
   # Layers determine plotting order
   if(missing(layer))
@@ -32,7 +33,7 @@ alluvial <- function( ..., freq, col="gray", border=0, layer, alpha=0.5,
     layer <- 1:n
   }
   p$layer <- layer
-  np <- ncol(p) - 5                    # Number of dimensions
+  np <- ncol(p) - 6                    # Number of dimensions
   d <- p[ , 1:np, drop=FALSE]          # Dimensions dframe
   p <- p[ , -c(1:np), drop=FALSE]      # Parameteres dframe
   p$freq <- with(p, freq/sum(freq))    # Frequencies (weights)
@@ -71,7 +72,8 @@ alluvial <- function( ..., freq, col="gray", border=0, layer, alpha=0.5,
   plot(NULL, type="n", xlim=c(1-cw, np+cw), ylim=c(0, 1), xaxt="n", yaxt="n",
        xaxs="i", yaxs="i", xlab='', ylab='', frame=FALSE)
   # For every stripe
-  for(i in rev(order(p$layer)) )
+  ind <- rev(order(p$layer)[!hide])
+  for(i in ind )
   {
     # For every inter-dimensional segment
     for(j in 1:(np-1) )
