@@ -62,3 +62,13 @@ if(FALSE)
 polpanvote <- d
 save(polpanvote, file="polpanvote.rda")
 }
+
+
+
+#============================================================================ 
+
+source("../R/alluvial.R")
+
+vnames <- grep("choice", names(d), value=TRUE)
+ds <- subset(d, select=vnames)
+dsc <- ds[ complete.cases(ds) , ]
