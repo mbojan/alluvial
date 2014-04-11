@@ -43,6 +43,9 @@ alluvial <- function( ..., freq, col="gray", border=0, layer, hide=FALSE, alpha=
     col["alpha", ] <- p$alpha*256
   }
   p$col <- apply(col, 2, function(x) do.call(rgb, c(as.list(x), maxColorValue = 256)))
+  # convert character vectors in data to factors
+  isch <- sapply(d, is.character)
+  d[isch] <- lapply(d[isch], as.factor)
   # Compute endpoints of flows (polygons)
   # i = dimension id
   # d = data frame of dimensions
