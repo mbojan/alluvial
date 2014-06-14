@@ -62,8 +62,10 @@ alluvial <- function( ..., freq, col="gray", border=0, layer, hide=FALSE, alpha=
     x <- cbind(x[-length(x)], x[-1])
     # By how much stripes need to be shifted upwards (gap/max(gap))
     gap <- cumsum( c(0L, diff(as.numeric(d[o,i])) != 0) )
+    mx <- max(gap)
+    if (mx == 0) mx <- 1
     # shifts
-    gap <- gap / max(gap) * w
+    gap <- gap / mx * w
     # add gap-related shifts to stripe coordinates on dimension i
     (x + gap)[order(o),]
   }
