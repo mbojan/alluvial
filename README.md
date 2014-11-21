@@ -1,5 +1,7 @@
 # R package for drawing alluvial diagrams
 
+[![Build Status](https://travis-ci.org/mbojan/alluvial.png?branch=master)](https://travis-ci.org/mbojan/alluvial)
+
 What are alluvial diagrams? See for example:
 
 * [Wikipedia](http://en.wikipedia.org/wiki/Alluvial_diagram)
