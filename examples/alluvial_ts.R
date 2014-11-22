@@ -1,5 +1,5 @@
 # d <- refugees
-d <- read.csv('https://dl.dropboxusercontent.com/u/46043231/data/refugees.csv', stringsAs = FALSE)
+# get data from 'https://dl.dropboxusercontent.com/u/46043231/data/refugees.csv'
 head(d)
 reshape2::dcast(d, country ~ year, value.var = 'refugees')
 
