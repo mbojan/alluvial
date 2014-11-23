@@ -1,13 +1,11 @@
-require(grid)
-
 #' Alluvial diagram for multiple time series data
 #'
 #' This is a variant of alluvial diagram suitable for multiple
 #' (cross-sectional) time series. It also works with continuous variables equivalent to time
 #' 
-#' @param x data.frame, of time-series (or suitable equivalent continuously disaggregated data), with 3 columns (in order: category, time-variable, value) with <= 1 row for each category-time combination
+#' @param dat data.frame of time-series (or suitable equivalent continuously disaggregated data), with 3 columns (in order: category, time-variable, value) with <= 1 row for each category-time combination
 #' @param wave numeric, curve wavyness defined in terms of x axis data range - i.e. bezier point offset. Experiment to get this right
-#' @param ygap numeric, vertical distance between polygons - a multiple of 10% of the mean data value
+#' @param ygap numeric, vertical distance between polygons - a multiple of 10\% of the mean data value
 #' @param col colour, value or vector of length matching the number of unique categories. Individual colours of vector are mapped to categories in alpha-numeric order
 #' @param lwd numeric, value or vector of length matching the number of unique categories for polygon stroke line width. Individual values of vector are mapped to categories in alpha-numeric order
 #' @param alpha numeric, [0,1] polygon fill transparency
@@ -24,17 +22,23 @@ require(grid)
 #' @param grid.col colour, of grid axes
 #' @param grid.lwd numeric, line width of grid axes
 #' @param leg.mode logical, draw y-axis scale legend inside largest data point (TRUE default) or alternatively with custom position/value (FALSE)
-#' @param leg.x/leg.y numeric [0,1], x/y positions of legend if leg.mode = FALSE
+#' @param leg.x,leg.y numeric [0,1], x/y positions of legend if leg.mode = FALSE
 #' @param leg.cex numeric, legend text size
 #' @param leg.col colour, of legend lines and text
 #' @param leg.lty numeric, code for legend line type
 #' @param leg.lwd numeric, legend line width
 #' @param leg.max numeric, legend scale line width
-#' @param xlab/ylab character, x-axis / y-axis titles
-#' @param xlab.pos/ylab.pos numeric, perpendicular offset for axis titles
+#' @param xlab,ylab character, x-axis / y-axis titles
+#' @param xlab.pos,ylab.pos numeric, perpendicular offset for axis titles
 #' @param ... arguments to pass to polygon()
-#' 
+#'
 #' @export
+#'
+#' @examples
+#' d <- expand.grid(category=letters[1:2], time=1:5)
+#' d$value <- sample((1:3) * 10, nrow(d), replace=TRUE)
+#' alluvial_ts(d)
+
 
 alluvial_ts <- function(dat, wave = NA, ygap = 1, col = NA, alpha = NA, plotdir = 'up', rankup = FALSE, 
                         lab.cex = 1, lab.col = 'black', xmargin = .1, axis.col = 'black', title = NA, 
