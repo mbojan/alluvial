@@ -1,5 +1,3 @@
-require(grid)
-
 #' Alluvial diagram for multiple time series data
 #'
 #' This is a variant of alluvial diagram suitable for multiple
