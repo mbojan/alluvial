@@ -36,7 +36,7 @@ require(grid)
 #' 
 #' @export
 
-alluvial_ts <- function(x, wave = NA, ygap = 1, col = NA, alpha = NA, plotdir = 'up', rankup = FALSE, 
+alluvial_ts <- function(dat, wave = NA, ygap = 1, col = NA, alpha = NA, plotdir = 'up', rankup = FALSE, 
                         lab.cex = 1, lab.col = 'black', xmargin = .1, axis.col = 'black', title = NA, 
                         title.cex = 1, axis.cex = 1, grid = FALSE, grid.col = 'grey80', grid.lwd = 1, 
                         leg.mode = TRUE, leg.x = .1, leg.y = .9, leg.cex = 1, leg.col = 'black', leg.lty = NA, 
