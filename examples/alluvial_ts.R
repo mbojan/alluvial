@@ -24,5 +24,4 @@ alluvial_ts(d, wave = .3, ygap = 5, col = cols, plotdir = 'centred', alpha = .9,
 # non time-series example - Virginia deaths dataset
 d = reshape2::melt(data.frame(age=row.names(VADeaths), VADeaths), id.vars='age')[,c(2,1,3)]
 names(d) = c('pop_group','age_group','deaths')
-d$age_group = ordered(d$age_group, levels=row.names(VADeaths))
 alluvial_ts(d)
