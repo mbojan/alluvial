@@ -194,7 +194,7 @@ alluvial_ts <- function(dat, wave = NA, ygap = 1, col = NA, alpha = NA, plotdir 
     diffs <- d[[topitem]]$y1 - d[[topitem]]$y0
     time <- d[[topitem]]$x[match(max(diffs), diffs)]
     lines(data.frame(x = c(leg_x, leg_x), y = c(leg_y, leg_y + maxval)), lwd = leg.lwd, lend = 'butt', col = leg.col, lty = leg.lty)
-    max.lab <- formatC(maxval, format = "d", big.mark = ', ')
+    max.lab <- formatC(maxval, format = "d", big.mark = ',')
     text(rep(leg_x, 2), c(leg_y, leg_y + maxval), labels = c('0', max.lab), cex = leg.cex, pos = 4, offset = 1, col = leg.col)
   }
 }
