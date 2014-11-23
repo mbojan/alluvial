@@ -34,10 +34,7 @@
 #'
 #' @export
 #'
-#' @examples
-#' d <- expand.grid(category=letters[1:2], time=1:5)
-#' d$value <- sample((1:3) * 10, nrow(d), replace=TRUE)
-#' alluvial_ts(d)
+#' @example examples/alluvial_ts.R
 
 
 alluvial_ts <- function(dat, wave = NA, ygap = 1, col = NA, alpha = NA, plotdir = 'up', rankup = FALSE, 
