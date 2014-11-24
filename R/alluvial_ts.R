@@ -45,6 +45,7 @@ alluvial_ts <- function(dat, wave = NA, ygap = 1, col = NA, alpha = NA, plotdir 
   
   orig.names <- names(dat)
   names(dat) <- c('item', 'time', 'val')
+  if(is.numeric(dat$item)) dat$item <- as.character(dat$item)
   if(is.ordered(dat$time) | is.factor(dat$time)) {
     axis.labs <- levels(dat$time)
     dat$time <- as.numeric(dat$time)
