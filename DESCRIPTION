@@ -8,7 +8,8 @@ Authors@R: person("Michal", "Bojanowski", role=c("aut", "cre"),
 Description: Creating alluvial diagrams
 Suggests:
     devtools,
-    testthat
+    testthat,
+    reshape2
 License: GPL-3
 LazyLoad: yes
 LazyData: yes
