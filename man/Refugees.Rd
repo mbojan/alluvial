@@ -3,19 +3,20 @@
 \name{Refugees}
 \alias{Refugees}
 \title{Refugees data}
-\format{Describe columns
+\format{Data frame with the following columns:
 \describe{
-\item{country}{country}
-\item{year}{year}
-\item{refugees}{number of refugees?}
+\item{country}{Country or territory of origin}
+\item{year}{Year (2003-13)}
+\item{refugees}{Persons recognized as refugees under the 1951 UN Convention, etc..}
 }}
 \source{
-Where the data comes from?
+http://data.un.org/Data.aspx?d=UNHCR&f=indID%3aType-Ref
 }
 \description{
-What that data?
-}
-\references{
-References, if any
+Top 10 countries/territories of origin (excluding "Various") for period
+2003-13 of UNHCR statistics on "Persons recognized as refugees under the
+1951 UN Convention/1967 Protocol, the 1969 OAU Convention, in accordance
+with the UNHCR Statute, persons granted a complementary form of protection
+and those granted temporary protection."
 }
 
