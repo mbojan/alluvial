@@ -10,7 +10,7 @@
 \item{refugees}{Persons recognized as refugees under the 1951 UN Convention, etc..}
 }}
 \source{
-http://data.un.org/Data.aspx?d=UNHCR&f=indID%3aType-Ref
+\url{http://data.un.org/Data.aspx?d=UNHCR&f=indID\%3aType-Ref}
 }
 \description{
 Top 10 countries/territories of origin (excluding "Various") for period

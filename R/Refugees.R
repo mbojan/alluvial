@@ -15,7 +15,7 @@
 #' }
 #'
 #' @source
-#' http://data.un.org/Data.aspx?d=UNHCR&f=indID%3aType-Ref
+#' \url{http://data.un.org/Data.aspx?d=UNHCR&f=indID\%3aType-Ref}
 #'
 #' @docType data
 #' @name Refugees
