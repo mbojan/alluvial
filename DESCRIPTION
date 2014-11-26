@@ -3,8 +3,9 @@ Type: Package
 Title: Alluvial Diagrams
 Version: 0.1-0
 Date: 2013-10-29
-Authors@R: person("Michal", "Bojanowski", role=c("aut", "cre"),
-    email="michal2992@gmail.com")
+Authors@R: c( person("Michal", "Bojanowski", role=c("aut", "cre"),
+    email="michal2992@gmail.com"), person("Robin", "Edwards", role="aut",
+    email="robin.edwards@ucl.ac.uk") )
 Description: Creating alluvial diagrams
 Suggests:
     devtools,
