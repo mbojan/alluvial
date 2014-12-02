@@ -1,11 +1,14 @@
-bibentry("Manual",
-         title="Alluvial Diagrams",
-         author=person("Michal", "Bojanowski"),
-         year = version$year,
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version: %s", meta$Version)
+
+bibentry( bibtype="Manual",
+         title="{alluvial}: R Package for Creating Alluvial Diagrams",
+         author= c(person("Michal", "Bojanowski"),
+                   person("Robin", "Edwards") ),
+         year = year,
+         note = note,
          url = "https://github.com/mbojan/alluvial",
-
          mheader="To cite package 'allluvial' in publications use:",
-
-         mfooter= paste("I have invested a some time and effort in creating this package,",
-                        "please cite it when using it for data analysis.", sep = " ")
+         mfooter= paste("We have invested some time and effort in creating this package,",
+                        "please cite it when using it for data analysis or other tasks.", sep = " ")
          )
