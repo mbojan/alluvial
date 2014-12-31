@@ -30,11 +30,21 @@ alluvial <- function( ..., freq,
                      col="gray", border=0, layer, hide=FALSE, alpha=0.5,
                      gap.width=0.05, xw=0.1, cw=0.1,
                      blocks = TRUE,
+                     ordering=NULL,
                      cex=par("cex"),
                      cex.axis=par("cex.axis"))
 {
   # Data and graphical parameters
   p <- data.frame( ..., freq=freq, col, alpha, border, hide, stringsAsFactors=FALSE)
+  np <- ncol(p) - 5                    # Number of dimensions
+  # check if 'ordering' is of proper form
+  if( !is.null(ordering) )
+  {
+    stopifnot(is.list(ordering))
+    if( length(ordering) != np )
+      stop("'ordering' argument should have ",
+           np, " components, has ", length(ordering))
+  }
   n <- nrow(p)
   # Layers determine plotting order
   if(missing(layer))
@@ -42,7 +52,6 @@ alluvial <- function( ..., freq,
     layer <- 1:n
   }
   p$layer <- layer
-  np <- ncol(p) - 6                    # Number of dimensions
   d <- p[ , 1:np, drop=FALSE]          # Dimensions dframe
   p <- p[ , -c(1:np), drop=FALSE]      # Parameteres dframe
   p$freq <- with(p, freq/sum(freq))    # Frequencies (weights)
@@ -75,7 +84,14 @@ alluvial <- function( ..., freq,
     # Ordering dimension ids for lexicographic sorting
     a <- c(i, (1:ncol(d))[-i])
     # Order of rows of d starting from i-th dimension
-    o <- do.call(order, d[a])
+    if( is.null(ordering[[i]]) )
+    {
+      o <- do.call(order, d[a])
+    } else {
+      d2 <- d
+      d2[1] <- ordering[[i]]
+      o <- do.call(order, d2[a])
+    }
     # Breakpoints on a dimension
     x <- c(0, cumsum(f[o])) * (1-w)
     # Stripe coordinates on a dimension
