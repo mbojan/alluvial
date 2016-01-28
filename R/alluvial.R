@@ -91,7 +91,7 @@ alluvial <- function( ..., freq,
   plot(NULL, type="n", xlim=c(1-cw, np+cw), ylim=c(0, 1), xaxt="n", yaxt="n",
        xaxs="i", yaxs="i", xlab='', ylab='', frame=FALSE)
   # For every stripe
-  ind <- rev(order(p[!hide, ]$layer))
+  ind <- which(!p$hide)[rev(order(p[!p$hide, ]$layer))]
   for(i in ind )
   {
     # For every inter-dimensional segment
