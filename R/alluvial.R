@@ -17,6 +17,9 @@
 #' @param blocks logical, whether to use blocks to tie the flows together at each category, versus contiguous ribbons (also admits character value "bookends")
 #'
 #' @return Nothing
+#' 
+#' @importFrom grDevices col2rgb rgb
+#' @importFrom graphics plot xspline axis rect polygon text par
 #'
 #' @export
 #'

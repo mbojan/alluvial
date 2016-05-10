@@ -31,6 +31,10 @@
 #' @param xlab,ylab character, x-axis / y-axis titles
 #' @param xlab.pos,ylab.pos numeric, perpendicular offset for axis titles
 #' @param ... arguments to pass to polygon()
+#' 
+#' @importFrom grDevices extendrange rainbow
+#' @importFrom graphics mtext plot.new plot.window abline lines
+#' @importFrom stats aggregate approx
 #'
 #' @export
 #'
