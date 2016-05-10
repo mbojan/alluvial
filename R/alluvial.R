@@ -15,6 +15,7 @@
 #' @param xw numeric, the distance from the set axis to the control points of the xspline
 #' @param cw numeric, width of the category axis
 #' @param blocks logical, whether to use blocks to tie the flows together at each category, versus contiguous ribbons (also admits character value "bookends")
+#' @param cex,cex.axis numeric, scaling of fonts of category labels and axis labels respectively. See \code{\link{par}}.
 #'
 #' @return Nothing
 #' 
@@ -28,7 +29,9 @@
 alluvial <- function( ..., freq,
                      col="gray", border=0, layer, hide=FALSE, alpha=0.5,
                      gap.width=0.05, xw=0.1, cw=0.1,
-                     blocks = TRUE )
+                     blocks = TRUE,
+                     cex=par("cex"),
+                     cex.axis=par("cex.axis"))
 {
   # Data and graphical parameters
   p <- data.frame( ..., freq=freq, col, alpha, border, hide, stringsAsFactors=FALSE)
@@ -134,13 +137,13 @@ alluvial <- function( ..., freq,
     }
     for(k in seq_along(ax))
     {
-      text( j, mean(ax[[k]]), labels=names(ax)[k])
+      text( j, mean(ax[[k]]), labels=names(ax)[k], cex=cex)
     }
   }           
   # X axis
   axis(1, at= rep(c(-cw, cw), ncol(d)) + rep(seq_along(d), each=2),
        line=0.5, col="white", col.ticks="black", labels=FALSE)
-  axis(1, at=seq_along(d), tick=FALSE, labels=names(d))
+  axis(1, at=seq_along(d), tick=FALSE, labels=names(d), cex.axis=cex.axis)
   par(op)
 }
 

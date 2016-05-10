@@ -5,7 +5,8 @@
 \title{Alluvial diagram}
 \usage{
 alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
-  alpha = 0.5, gap.width = 0.05, xw = 0.1, cw = 0.1, blocks = TRUE)
+  alpha = 0.5, gap.width = 0.05, xw = 0.1, cw = 0.1, blocks = TRUE,
+  cex = par("cex"), cex.axis = par("cex.axis"))
 }
 \arguments{
 \item{...}{vectors or data frames, all for the same number of observations}
@@ -29,6 +30,8 @@ alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
 \item{cw}{numeric, width of the category axis}
 
 \item{blocks}{logical, whether to use blocks to tie the flows together at each category, versus contiguous ribbons (also admits character value "bookends")}
+
+\item{cex, cex.axis}{numeric, scaling of fonts of category labels and axis labels respectively. See \code{\link{par}}.}
 }
 \value{
 Nothing
