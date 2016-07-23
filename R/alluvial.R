@@ -19,6 +19,9 @@
 #' @return Invisibly a list with elements:
 #' \item{endpoints}{A list of matrices of coordinates of endpoints of the alluvia}
 #' 
+#' @note Please mind that the API is planned to change to be more compatible
+#'   with \pkg{dplyr} verbs.
+#' 
 #' @importFrom grDevices col2rgb rgb
 #' @importFrom graphics plot xspline axis rect polygon text par
 #'
