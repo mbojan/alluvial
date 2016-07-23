@@ -2,11 +2,13 @@ Package: alluvial
 Type: Package
 Title: Alluvial Diagrams
 Version: 0.1-1
-Date: 2016-05-10
+Date: 2016-07-23
 Authors@R: c( person("Michal", "Bojanowski", role=c("aut", "cre"),
     email="michal2992@gmail.com"), person("Robin", "Edwards", role="aut",
     email="robin.edwards@ucl.ac.uk") )
-Description: Creating alluvial diagrams.
+Description: Creating alluvial diagrams (also known as parallel sets plots).
+URL: https://github.com/mbojan/alluvial
+BugReports: https://github.com/mbojan/alluvial/issues
 Suggests:
     devtools,
     testthat,
