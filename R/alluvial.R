@@ -2,8 +2,6 @@
 #'
 #' Drawing alluvial diagrams, also known as parallel set plots.
 #'
-#' This function is still under development!
-#'
 #' @param ... vectors or data frames, all for the same number of observations
 #' @param freq numeric, vector of frequencies of the same length as the number of observations
 #' @param col vector of colors of the stripes

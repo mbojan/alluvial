@@ -42,9 +42,6 @@ Invisibly a list with elements:
 \description{
 Drawing alluvial diagrams, also known as parallel set plots.
 }
-\details{
-This function is still under development!
-}
 \examples{
 # Titanic data
 tit <- as.data.frame(Titanic)
