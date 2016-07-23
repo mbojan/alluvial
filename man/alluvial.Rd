@@ -31,6 +31,8 @@ alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
 
 \item{blocks}{logical, whether to use blocks to tie the flows together at each category, versus contiguous ribbons (also admits character value "bookends")}
 
+\item{ordering}{list of numeric vectors allowing to reorder the alluvia on each axis separately, see Examples}
+
 \item{cex, cex.axis}{numeric, scaling of fonts of category labels and axis labels respectively. See \code{\link{par}}.}
 }
 \value{
@@ -38,10 +40,10 @@ Invisibly a list with elements:
 \item{endpoints}{A list of matrices of coordinates of endpoints of the alluvia}
 }
 \description{
-Drawing alluvial diagrams also known as parallel set plots.
+Drawing alluvial diagrams, also known as parallel set plots.
 }
 \details{
-Still under development!
+This function is still under development!
 }
 \examples{
 # Titanic data

@@ -1,8 +1,8 @@
 #' Alluvial diagram
 #'
-#' Drawing alluvial diagrams also known as parallel set plots.
+#' Drawing alluvial diagrams, also known as parallel set plots.
 #'
-#' Still under development!
+#' This function is still under development!
 #'
 #' @param ... vectors or data frames, all for the same number of observations
 #' @param freq numeric, vector of frequencies of the same length as the number of observations
@@ -15,6 +15,7 @@
 #' @param xw numeric, the distance from the set axis to the control points of the xspline
 #' @param cw numeric, width of the category axis
 #' @param blocks logical, whether to use blocks to tie the flows together at each category, versus contiguous ribbons (also admits character value "bookends")
+#' @param ordering list of numeric vectors allowing to reorder the alluvia on each axis separately, see Examples
 #' @param cex,cex.axis numeric, scaling of fonts of category labels and axis labels respectively. See \code{\link{par}}.
 #'
 #' @return Invisibly a list with elements:
