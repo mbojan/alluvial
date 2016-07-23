@@ -34,7 +34,8 @@ alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
 \item{cex, cex.axis}{numeric, scaling of fonts of category labels and axis labels respectively. See \code{\link{par}}.}
 }
 \value{
-Nothing
+Invisibly a list with elements:
+\item{endpoints}{A list of matrices of coordinates of endpoints of the alluvia}
 }
 \description{
 Drawing alluvial diagrams also known as parallel set plots.

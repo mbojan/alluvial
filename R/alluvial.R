@@ -17,7 +17,8 @@
 #' @param blocks logical, whether to use blocks to tie the flows together at each category, versus contiguous ribbons (also admits character value "bookends")
 #' @param cex,cex.axis numeric, scaling of fonts of category labels and axis labels respectively. See \code{\link{par}}.
 #'
-#' @return Nothing
+#' @return Invisibly a list with elements:
+#' \item{endpoints}{A list of matrices of coordinates of endpoints of the alluvia}
 #' 
 #' @importFrom grDevices col2rgb rgb
 #' @importFrom graphics plot xspline axis rect polygon text par
@@ -162,6 +163,6 @@ alluvial <- function( ..., freq,
        line=0.5, col="white", col.ticks="black", labels=FALSE)
   axis(1, at=seq_along(d), tick=FALSE, labels=names(d), cex.axis=cex.axis)
   par(op)
-  return(rval)
+  invisible(rval)
 }
 
