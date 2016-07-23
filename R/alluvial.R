@@ -24,7 +24,7 @@
 #'
 #' @export
 #'
-#' @example examples/alluvial.R
+#' @example man-roxygen/alluvial.R
 
 alluvial <- function( ..., freq,
                      col="gray", border=0, layer, hide=FALSE, alpha=0.5,

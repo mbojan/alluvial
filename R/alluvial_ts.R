@@ -38,7 +38,7 @@
 #'
 #' @export
 #'
-#' @example examples/alluvial_ts.R
+#' @example man-roxygen/alluvial_ts.R
 
 
 alluvial_ts <- function(dat, wave = NA, ygap = 1, col = NA, alpha = NA, plotdir = 'up', rankup = FALSE, 

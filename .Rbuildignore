@@ -1,4 +1,4 @@
-examples
+man-roxygen
 misc
 .travis.yml
 ^.*\.Rproj$
