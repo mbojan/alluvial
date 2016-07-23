@@ -6,7 +6,7 @@
 \usage{
 alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
   alpha = 0.5, gap.width = 0.05, xw = 0.1, cw = 0.1, blocks = TRUE,
-  cex = par("cex"), cex.axis = par("cex.axis"))
+  ordering = NULL, cex = par("cex"), cex.axis = par("cex.axis"))
 }
 \arguments{
 \item{...}{vectors or data frames, all for the same number of observations}
@@ -66,11 +66,19 @@ alluvial(tit3d[,1:3], freq=tit3d$Freq, alpha=1, xw=0.2,
          layer = tit3d$Sex != "Female",
          border="white")
 
+
 # 4d
 alluvial( tit[,1:4], freq=tit$Freq, border=NA,
          hide = tit$Freq < quantile(tit$Freq, .50),
          col=ifelse( tit$Class == "3rd" & tit$Sex == "Male", "red", "gray") )
 
+# 3d example with custom ordering
+# Reorder "Sex" axis according to survival status
+ord <- list(NULL, with(tit3d, order(Sex, Survived)), NULL)
+alluvial(tit3d[,1:3], freq=tit3d$Freq, alpha=1, xw=0.2,
+         col=ifelse( tit3d$Survived == "No", "red", "gray"),
+         layer = tit3d$Sex != "Female",
+         border="white", ordering=ord)
 
 # Possible blocks options
 for (blocks in c(TRUE, FALSE, "bookends")) {
@@ -81,20 +89,6 @@ for (blocks in c(TRUE, FALSE, "bookends")) {
               col = ifelse( tit$Class == "3rd" & tit$Sex == "Male",
                             "red", "gray" ),
               blocks = blocks )
-}
-
-
-### POLPAN data
-if(FALSE)
-{
-# POLPAN panel sample
-vnames <- grep("w[0-9]+", names(d), value=TRUE)
-z <- aggregate( rep(1, nrow(d)), d[ , vnames ], sum)
-z[,vnames] <- lapply( z[vnames], as.character)
-# 1988 respondents
-alluvial(z[,vnames], freq=z$x, col=ifelse(z$w1988, "red", "gray"))
-# 2008 respondents
-alluvial(z[,vnames], freq=z$x, col=ifelse(z$w2008, "red", "gray"))
 }
 }
 
