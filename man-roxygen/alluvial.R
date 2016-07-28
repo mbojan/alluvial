@@ -45,3 +45,11 @@ for (blocks in c(TRUE, FALSE, "bookends")) {
                             "red", "gray" ),
               blocks = blocks )
 }
+
+
+# Data returned
+x <- alluvial( tit2d[,1:2], freq=tit2d$Freq, xw=0.0, alpha=0.8,
+          gap.width=0.1, col= "steelblue", border="white",
+          layer = tit2d$Survived != "Yes" )
+points( rep(1, 16), x$endpoints[[1]], col="green")
+points( rep(2, 16), x$endpoints[[2]], col="blue")

@@ -17,7 +17,8 @@
 #' @param cex,cex.axis numeric, scaling of fonts of category labels and axis labels respectively. See \code{\link{par}}.
 #'
 #' @return Invisibly a list with elements:
-#' \item{endpoints}{A list of matrices of coordinates of endpoints of the alluvia}
+#' \item{endpoints}{A list of matrices of y-coordinates of endpoints of the
+#' alluvia. x-coordinates are consecutive natural numbers.}
 #' 
 #' @note Please mind that the API is planned to change to be more compatible
 #'   with \pkg{dplyr} verbs.

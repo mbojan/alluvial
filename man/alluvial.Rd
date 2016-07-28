@@ -37,7 +37,8 @@ alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
 }
 \value{
 Invisibly a list with elements:
-\item{endpoints}{A list of matrices of coordinates of endpoints of the alluvia}
+\item{endpoints}{A list of matrices of y-coordinates of endpoints of the
+alluvia. x-coordinates are consecutive natural numbers.}
 }
 \description{
 Drawing alluvial diagrams, also known as parallel set plots.
@@ -94,5 +95,13 @@ for (blocks in c(TRUE, FALSE, "bookends")) {
                             "red", "gray" ),
               blocks = blocks )
 }
+
+
+# Data returned
+x <- alluvial( tit2d[,1:2], freq=tit2d$Freq, xw=0.0, alpha=0.8,
+          gap.width=0.1, col= "steelblue", border="white",
+          layer = tit2d$Survived != "Yes" )
+points( rep(1, 16), x$endpoints[[1]], col="green")
+points( rep(2, 16), x$endpoints[[2]], col="blue")
 }
 
