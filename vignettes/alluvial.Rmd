@@ -2,7 +2,10 @@
 title: "Creating Alluvial Diagrams"
 author: "Michał Bojanowski"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    toc: yes
+    fig_caption: yes
 vignette: >
   %\VignetteIndexEntry{Creating Alluvial Diagrams}
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,47 +18,74 @@ library(alluvial)
 library(dplyr)
 
 knitr::opts_chunk$set(
-  fig.show="hold"
+  fig.width=7, 
+  fig.height=4,
+  cache=TRUE
 )
 ```
 
-As an example data we will use Titanic data from base. Let's convert it to a data frame:
 
-```{r data}
-# Titanic data
-tit <- as.data.frame(Titanic, stringsAsFactors = FALSE)
-```
 
 
 # What is alluvial diagram?
 
-```{r}
-# Survival status, Sex, and Class
-tit %>% group_by(Sex, Class, Survived) %>%
-  summarise(n = sum(Freq)) -> tit3d
+Alluvial diagram is a variant of a Parallel Coordinates Plot (PCP) but for categorical variables. Variables are assigned to vertical axes that are parallel. Values are represented with blocks on each axis. Observations are represented with *alluvia* (sing. "alluvium") spanning across all the axes.
 
-alluvial(tit3d[,1:3], freq=tit3d$n,
-         col = ifelse(tit3d$Survived == "Yes", "orange", "grey")
+You create alluvial diagrams with function `alluvial()`. This is one example using `Titanic` dataset. Let's convert it to a data frame
+
+```{r data}
+tit <- as.data.frame(Titanic, stringsAsFactors = FALSE)
+head(tit)
+```
+
+and create the alluvial diagram.
+
+```{r example}
+alluvial(tit[,1:4], freq=tit$Freq,
+         col = ifelse(tit$Survived == "Yes", "orange", "grey"),
+         border = ifelse(tit$Survived == "Yes", "orange", "grey"),
+         hide = tit$Freq == 0,
+         cex = 0.7
 )
 ```
+
+We have four variables:
+
+- `Class` on the ship the passanger occupied
+- `Sex` of the passenger
+- `Age` of the passenger
+- Whether the passenger `Survived`.
+
+Vertical sizes of the blocks are proportional to the frequency, and so are the widths of the alluvia. Alluvia represent all combinations of values of the variables in the dataset. By default the vertical order of the alluvia is determined by alphabetical ordering of the values on each variable lexicographically (last variable changes first) drawn from bottom to top. In this example, the color is determined by passengers' survival status, i.e. passenger who survived are represented with orange alluvia.
+
+Alluvial diagrams are very useful in reading various conditional and uncoditional distributions in a multivariate dataset. For example, we can see that:
+
+- Most of the Crew did not survived -- majority of the height of the Crew category is covered by grey alluvia.
+- Majortity of the Crew where adult men.
+- Almost all women from the 1st Class did survive.
+- The women who did not survive come mostly from 3rd class.
+
 
 
 
 
 # Simple use
 
-By default all alluvia are drawn using gray, mildly transparent colors.
+Minimal use requires supplying data frame(s) as first argument, and a vector of frequencies as the `freq` argument. By default all alluvia are drawn using gray, mildly transparent colors.
 
+Two variables `Class` and `Survived`:
 
-
-
-```{r alluvial_defaults}
+```{r alluvial_defaults_2}
 # Survival status and Class
 tit %>% group_by(Class, Survived) %>%
   summarise(n = sum(Freq)) -> tit2d
 
 alluvial(tit2d[,1:2], freq=tit2d$n)
+```
 
+Three variables `Sex`, `Class`, and `Survived`:
+
+```{r alluvial_defaults_3}
 # Survival status, Sex, and Class
 tit %>% group_by(Sex, Class, Survived) %>%
   summarise(n = sum(Freq)) -> tit3d
@@ -66,79 +96,229 @@ alluvial(tit3d[,1:3], freq=tit3d$n)
 
 
 
+# Customizing
+
+There are several ways to customize alluvial diagrams with `alluvial()` the following sections illustrate probably most common usecases.
+
+
+## Hiding and reordering alluvia
+
+### Hiding
+
+With `alluvial` sometimes it is desirable to hide omit plotting some of the alluvia. This is most frequently the case with larger datasets in which there are a lot of combinations of values of the variables associated with very small frequencies, or even 0s. Alluvia can be hidden with argument `hide` expecting a logical vector of length equal to the number of rows in the data. Alluvia for which `hide` is `FALSE` are not plotted. For example, to hide alluvia with frequency less than 150:
+
+```{r alluvial_hide}
+alluvial(tit2d[,1:2], freq=tit2d$n, hide=tit2d$n < 150)
+```
+
+This skips drawing the alluvia corresponding to the following rows in `tit` data frame:
+
 ```{r}
-tit3d <- aggregate( Freq ~ Class + Sex + Survived, data=tit, sum)
+tit2d %>% select(Class, Survived, n) %>%
+  filter(n < 150)
+```
+
+You can see the gaps e.g. on the "Yes" and "No" category blocks on the `Survived` axis. 
+
+If you would rather omit these rows from the plot alltogether (i.e. no gaps), you need to filter your data before it is used by `alluvial()`.
+
+### Changing "layers"
+
+By default alluvia are plotted in the same order in which the rows are ordered in the dataset.
+
+Consider simple data:
+
+```{r data_layer}
+d <- data.frame(
+  x = c(1, 2, 3),
+  y = c(3 ,2, 1),
+  freq=c(1,1,1)
+)
+d
+```
+
+As there are three rows, we will have three alluvia:
+
+```{r layer_ex1, fig.width=3, fig.height=3, fig.show="hold"}
+alluvial(d[,1:2], freq=d$freq, col=1:3, alpha=1)
+# Reversing the order
+alluvial(d[ 3:1, 1:2 ], freq=d$freq, col=3:1, alpha=1)
+```
+
+Note that to keep colors matched in the same way to the alluvia we had to reverse the `col` argument too. Instead of reordering the data and keeping track of the other arguments plotting order can be adjusted with `layer` argument:
+
+```{r layer_ex2}
+alluvial(d[,1:2], freq=d$freq, col=1:3, alpha=1, 
+         layer=3:1)
+```
+
+The value of `layer` is passed to `order` so it is possible to use logical vectors e.g. if you only want to put some of the flows on top. For example, for Titanic data to put all alluvia for all survivors on top we can:
+
+```{r layer_ex3}
+alluvial(tit3d[,1:3], freq=tit3d$n, 
+         col = ifelse( tit3d$Survived == "Yes", "orange", "grey" ),
+         alpha = 0.8,
+         layer = tit3d$Survived == "No"
+)
+```
+
+First layer is the one on top, second layer below the first and so on. Consequently, in the example above, `Survived == "No"` is ordered after `Survived == "Yes"` so the former is below the latter.
 
 
+### Adjusting vertical order
+
+**This is feature is experimental!**
+
+Usually the order of the variables (axes) is rather unimportant. However, having particular two variables next to each other facilitates analyzing dependency between those two variables. In alluvial diagrams the ordering of the variables determines the vertical plotting order of the alluvia. This vertical order, together with setting `blocks` to `FALSE`, can be used to turn category blocks into stacked barcharts.
+
+Consider two versions of subsets of the Titanic data that differ only in the order of variables.
+
+```{r ordering_data}
+tit %>% group_by(Sex, Age, Survived) %>%
+  summarise( n= sum(Freq)) -> x
+
+tit %>% group_by(Survived, Age, Sex) %>%
+  summarise( n= sum(Freq)) -> y
+```
+
+In `x` we have `r paste(names(x), collapse="-")` while in `y` we have
+`r paste(names(y), collapse="-")`.
+
+If we color the alluvia according to the first axis, the category blocks of Age and Survived become barcharts showing relative frequencies of Men and Women within categories of Age and Survived. 
+
+```{r ordering_x}
+alluvial(x[,1:3], freq=x$n, 
+         col = ifelse(x$Sex == "Male", "orange", "grey"),
+         alpha = 0.8,
+         blocks=FALSE
+)
+```
+
+Now we can see for example that
+
+- There were a little bit of more girls than boys (category `Age == "Child"`)
+- Among surviors there were roughly the same number of Men and Women.
+
+Argument `ordering` can be used to fully customize the ordering of each alluvium on each axis without the need to reorder the axes themselves. This feature is experimental as you can easily break things. It expects a list of numeric vectors or `NULL`s one for each variable in the data:
+
+- Value `NULL` does not change the default order on the corresponding axis. 
+- A numeric vector should have length equal to the number of rows in the data and is determines the vertical order of the alluvia on the corresponding axis.
+
+For example:
+
+```{r ordering_y}
+alluvial(y[,1:3], freq=y$n, 
+         # col = RColorBrewer::brewer.pal(8, "Set1"),
+         col = ifelse(y$Sex == "Male", "orange", "grey"),
+         alpha = 0.8,
+         blocks = FALSE,
+         ordering = list(
+           order(y$Survived, y$Sex == "Male"),
+           order(y$Age, y$Sex == "Male"),
+           NULL
+         )
+)
+```
+
+The list passed to `ordering` has has three elements corresponding to `Survived`, `Age`, and `Sex` respectively (that's the order of the variables in `y`). The elements of this list are
+
+1. Call to `order` sorting the alluvia on the `Survived` axis. The alluvia need to be sorted according to `Survived` first (otherwise the categories "Yes" and "No" will be destroyed)
+and according to the `Sex` second.
+2. Call to `order` sorting the alluvia on the `Age` axis. The alluvia need to be sorted according to `Age` first `Sex` second.
+3. `NULL` leaves the default ordering on `Sex` axis.
+
+
+```{r}
+tit %>%
+  mutate(
+    ss = paste(Survived, Sex),
+    k = RColorBrewer::brewer.pal(4, "Paired")[ match(ss, sort(unique(ss))) ]
+  ) -> tit
+
+
+alluvial(tit[,1:4], freq=tit$Freq,
+         hide = tit$Freq < 10,
+         col = tit$k,
+         border = adjustcolor(tit$k, 0.2),
+         blocks=FALSE,
+         ordering = list(
+           NULL,
+           NULL,
+           order(tit$Age, tit$Survived == "No"),
+           order(tit$Survived, tit$Sex)
+         )
+)
+```
+
+
+
+```{r, eval=FALSE}
+d <- expand.grid(a=1:2, b=1:2, c=1:2)
+d %>%
+  mutate(
+    z=a,
+    n = rep(1, nrow(d)) 
+  ) -> d
+
+alluvial(
+  d[,1:4], 
+  freq=d$n, 
+  col=RColorBrewer::brewer.pal(8, "Paired"),
+  blocks=FALSE,
+  ordering = list(
+    NULL,
+    NULL,
+    order(d$b),
+    NULL
+  )
+  )
+```
+
+
+
+
+
+## Customizing curvature etc.
+
+`xw`
+
+## Customizing axes
+
+`gap.width`
+`cw`
+`blocks`
+
+## Customizing colors
+
+Colors of the alluvia can be customized with `col`, `border` and `alpha` arguments.
+
+
+
+```{r}
 # 2d
 alluvial( tit2d[,1:2], 
-          freq=tit2d$Freq, 
+          freq=tit2d$n, 
           xw=0.0, 
           alpha=0.8,
          gap.width=0.1, col= "steelblue", border="white",
          layer = tit2d$Survived != "Yes" )
 
 
-alluvial( tit2d[,1:2], freq=tit2d$Freq, 
-         hide=tit2d$Freq < 150,
+alluvial( tit2d[,1:2], freq=tit2d$n, 
+         hide=tit2d$n < 150,
          xw=0.0, alpha=0.8,
          gap.width=0.1, col= "steelblue", border="white",
          layer = tit2d$Survived != "Yes" )
 
-# 3d
-tit3d <- aggregate( Freq ~ Class + Sex + Survived, data=tit, sum)
-
-alluvial(tit3d[,1:3], freq=tit3d$Freq, alpha=1, xw=0.2,
+alluvial(tit3d[,1:3], freq=tit3d$n, alpha=1, xw=0.2,
          col=ifelse( tit3d$Survived == "No", "red", "gray"),
          layer = tit3d$Sex != "Female",
          border="white")
 ```
 
+# Appendix
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
-
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
-
-## Vignette Info
-
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```{r session_info}
+sessionInfo()
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
