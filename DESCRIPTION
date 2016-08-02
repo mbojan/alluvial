@@ -13,7 +13,7 @@ Suggests:
     devtools,
     testthat,
     reshape2
-License: GPL-3
+License: MIT + file LICENSE
 LazyLoad: yes
 LazyData: yes
 RoxygenNote: 5.0.1
