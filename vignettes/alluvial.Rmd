@@ -101,6 +101,25 @@ alluvial(tit3d[,1:3], freq=tit3d$n)
 There are several ways to customize alluvial diagrams with `alluvial()` the following sections illustrate probably most common usecases.
 
 
+## Customizing colors
+
+Colors of the alluvia can be customized with `col`, `border` and `alpha` arguments. For example:
+
+```{r colors}
+alluvial(
+  tit3d[,1:3], 
+  freq=tit3d$n,
+  col = ifelse( tit3d$Sex == "Female", "pink", "lightskyblue"),
+  border = "grey",
+  alpha = 0.7,
+  blocks=FALSE
+)
+```
+
+
+
+
+
 ## Hiding and reordering alluvia
 
 ### Hiding
@@ -252,7 +271,7 @@ alluvial(tit[,1:4], freq=tit$Freq,
 
 
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, echo=FALSE}
 d <- expand.grid(a=1:2, b=1:2, c=1:2)
 d %>%
   mutate(
@@ -278,43 +297,7 @@ alluvial(
 
 
 
-## Customizing curvature etc.
 
-`xw`
-
-## Customizing axes
-
-`gap.width`
-`cw`
-`blocks`
-
-## Customizing colors
-
-Colors of the alluvia can be customized with `col`, `border` and `alpha` arguments.
-
-
-
-```{r}
-# 2d
-alluvial( tit2d[,1:2], 
-          freq=tit2d$n, 
-          xw=0.0, 
-          alpha=0.8,
-         gap.width=0.1, col= "steelblue", border="white",
-         layer = tit2d$Survived != "Yes" )
-
-
-alluvial( tit2d[,1:2], freq=tit2d$n, 
-         hide=tit2d$n < 150,
-         xw=0.0, alpha=0.8,
-         gap.width=0.1, col= "steelblue", border="white",
-         layer = tit2d$Survived != "Yes" )
-
-alluvial(tit3d[,1:3], freq=tit3d$n, alpha=1, xw=0.2,
-         col=ifelse( tit3d$Survived == "No", "red", "gray"),
-         layer = tit3d$Sex != "Female",
-         border="white")
-```
 
 # Appendix
 
