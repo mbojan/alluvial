@@ -14,6 +14,7 @@
 #' @param cw numeric, width of the category axis
 #' @param blocks logical, whether to use blocks to tie the flows together at each category, versus contiguous ribbons (also admits character value "bookends")
 #' @param ordering list of numeric vectors allowing to reorder the alluvia on each axis separately, see Examples
+#' @param axis_labels character, labels of the axes, defaults to variable names in the data
 #' @param cex,cex.axis numeric, scaling of fonts of category labels and axis labels respectively. See \code{\link{par}}.
 #'
 #' @return Invisibly a list with elements:
@@ -35,6 +36,7 @@ alluvial <- function( ..., freq,
                      gap.width=0.05, xw=0.1, cw=0.1,
                      blocks = TRUE,
                      ordering=NULL,
+                     axis_labels=NULL,
                      cex=par("cex"),
                      cex.axis=par("cex.axis"))
 {
@@ -78,6 +80,13 @@ alluvial <- function( ..., freq,
     {
       c(TRUE, rep(FALSE, np - 2), TRUE)
     }
+  }
+  # Axis labels
+  if(is.null(axis_labels)) {
+    axis_labels <- names(d)
+  } else {
+    if(length(axis_labels) != ncol(d))
+      stop("`axis_labels` should have length ", names(d), ", has ", length(axis_labels))
   }
   # Compute endpoints of flows (polygons)
   # i = dimension id
@@ -164,7 +173,7 @@ alluvial <- function( ..., freq,
   # X axis
   axis(1, at= rep(c(-cw, cw), ncol(d)) + rep(seq_along(d), each=2),
        line=0.5, col="white", col.ticks="black", labels=FALSE)
-  axis(1, at=seq_along(d), tick=FALSE, labels=names(d), cex.axis=cex.axis)
+  axis(1, at=seq_along(d), tick=FALSE, labels=axis_labels, cex.axis=cex.axis)
   par(op)
   invisible(rval)
 }

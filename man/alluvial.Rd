@@ -6,7 +6,8 @@
 \usage{
 alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
   alpha = 0.5, gap.width = 0.05, xw = 0.1, cw = 0.1, blocks = TRUE,
-  ordering = NULL, cex = par("cex"), cex.axis = par("cex.axis"))
+  ordering = NULL, axis_labels = NULL, cex = par("cex"),
+  cex.axis = par("cex.axis"))
 }
 \arguments{
 \item{...}{vectors or data frames, all for the same number of observations}
@@ -32,6 +33,8 @@ alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
 \item{blocks}{logical, whether to use blocks to tie the flows together at each category, versus contiguous ribbons (also admits character value "bookends")}
 
 \item{ordering}{list of numeric vectors allowing to reorder the alluvia on each axis separately, see Examples}
+
+\item{axis_labels}{character, labels of the axes, defaults to variable names in the data}
 
 \item{cex, cex.axis}{numeric, scaling of fonts of category labels and axis labels respectively. See \code{\link{par}}.}
 }
