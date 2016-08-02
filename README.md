@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/mbojan/alluvial.png?branch=master)](https://travis-ci.org/mbojan/alluvial)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/alluvial?color=2ED968)](https://github.com/metacran/cranlogs.app)
-[![cran version](http://www.r-pkg.org/badges/version/alluvial)](http://cran.rstudio.com/web/packages/alluvial)
+[![cran version](http://www.r-pkg.org/badges/version/alluvial)](http://cloud.r-project.org/web/packages/alluvial)
 
 
 What are alluvial diagrams? See for example:
@@ -16,6 +16,5 @@ What are alluvial diagrams? See for example:
 Using "devtools" package:
 
 ``` r
-library(devtools)
-install_github("mbojan/alluvial")
+devtools::install_github("mbojan/alluvial")
 ```
