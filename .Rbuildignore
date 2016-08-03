@@ -6,3 +6,4 @@ misc
 internal
 README.Rmd
 Makefile
+appveyor.yml
