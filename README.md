@@ -1,6 +1,7 @@
 # R package for drawing alluvial diagrams
 
 [![Build Status](https://travis-ci.org/mbojan/alluvial.png?branch=master)](https://travis-ci.org/mbojan/alluvial)
+[![Build Status](https://ci.appveyor.com/api/projects/status/hrdxlyd9pb5penpd?svg=true)](https://ci.appveyor.com/project/mbojan/alluvial)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/alluvial?color=2ED968)](https://github.com/metacran/cranlogs.app)
 [![cran version](http://www.r-pkg.org/badges/version/alluvial)](https://cran.r-project.org/package=alluvial)
 
