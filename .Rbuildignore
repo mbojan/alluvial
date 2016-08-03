@@ -3,3 +3,6 @@ misc
 .travis.yml
 ^.*\.Rproj$
 ^\.Rproj\.user$
+internal
+README.Rmd
+Makefile
