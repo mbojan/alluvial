@@ -13,8 +13,11 @@ BugReports: https://github.com/mbojan/alluvial/issues
 Suggests:
     devtools,
     testthat,
-    reshape2
+    reshape2,
+    knitr,
+    rmarkdown
 License: MIT + file LICENSE
 LazyLoad: yes
 LazyData: yes
+VignetteBuilder: knitr
 RoxygenNote: 5.0.1
