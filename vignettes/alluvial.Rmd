@@ -246,25 +246,29 @@ and according to the `Sex` second.
 2. Call to `order` sorting the alluvia on the `Age` axis. The alluvia need to be sorted according to `Age` first `Sex` second.
 3. `NULL` leaves the default ordering on `Sex` axis.
 
+In the example below alluvia are colored by sex (red=Female, blue=Male) and survival status (bright=survived, dark=did not survive). Each category block is a stacked barchart showing relative freuquencies of man/women who did/did not survive. The alluvia are reordered on the last axis (Age) so that Sex categories are next each other (red together and blue together):
+
 
 ```{r}
+pal <- c("red4", "lightskyblue4", "red", "lightskyblue")
+
 tit %>%
   mutate(
     ss = paste(Survived, Sex),
-    k = RColorBrewer::brewer.pal(4, "Paired")[ match(ss, sort(unique(ss))) ]
+    k = pal[ match(ss, sort(unique(ss))) ]
   ) -> tit
 
 
-alluvial(tit[,1:4], freq=tit$Freq,
+alluvial(tit[,c(4,2,3)], freq=tit$Freq,
          hide = tit$Freq < 10,
          col = tit$k,
-         border = adjustcolor(tit$k, 0.2),
+         border = tit$k,
          blocks=FALSE,
          ordering = list(
            NULL,
            NULL,
-           order(tit$Age, tit$Survived == "No"),
-           order(tit$Survived, tit$Sex)
+           order(tit$Age, tit$Sex )
+
          )
 )
 ```
