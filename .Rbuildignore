@@ -1,5 +1,4 @@
 man-roxygen
-misc
 .travis.yml
 ^.*\.Rproj$
 ^\.Rproj\.user$
