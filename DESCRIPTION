@@ -15,7 +15,8 @@ Suggests:
     testthat,
     reshape2,
     knitr,
-    rmarkdown
+    rmarkdown,
+    dplyr
 License: MIT + file LICENSE
 LazyLoad: yes
 LazyData: yes
