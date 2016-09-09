@@ -24,7 +24,7 @@ notifications:
        secure: lo2pvFaAGQsvWkuRClDc2Fsqd6SiOAi/yHC/gur3fdgBCueEBMmRkxBf4nTsnqmSBEcoBqz3HjXvszO0Q3WV3Q==
      channel: '#builds'
      on_build_failure: true
-     on_build_status_change: true
+     on_build_status_changed: true
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
