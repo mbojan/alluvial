@@ -7,7 +7,7 @@ cache: packages
 notifications:
   email:
     on_success: change
-    on_failure: change
+    on_failure: always
   slack:
     secure: B2TF06mI+FwB9xUI40A03rk+7t1X+d/Y1AqIs1sXFneT77OYeKJLYbcNaxLJWMczHmJGcfhEN9kzaBLs2PoPUZEUL0A79fpMExTv4xr3kvo5SEKkXerrfr2/TuKhDiQAVOOKPzGlQY4txB1mS+CN2gUx4nJbCutsZfc4vfZmykw=
     on_success: change
