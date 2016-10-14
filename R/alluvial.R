@@ -4,7 +4,7 @@
 #'
 #' @param ... vectors or data frames, all for the same number of observations
 #' @param freq numeric, vector of frequencies of the same length as the number of observations
-#' @param col vector of colors of the stripes
+#' @param col vector or data.frame of colors of the stripes
 #' @param border vector of border colors for the stripes
 #' @param layer numeric, order of drawing of the stripes
 #' @param hide logical, should particular stripe be plotted
@@ -31,6 +31,7 @@
 #'
 #' @example man-roxygen/alluvial.R
 
+
 alluvial <- function( ..., freq,
                      col="gray", border=0, layer, hide=FALSE, alpha=0.5,
                      gap.width=0.05, xw=0.1, cw=0.1,
@@ -41,8 +42,8 @@ alluvial <- function( ..., freq,
                      cex.axis=par("cex.axis"))
 {
   # Data and graphical parameters
-  p <- data.frame( ..., freq=freq, col, alpha, border, hide, stringsAsFactors=FALSE)
-  np <- ncol(p) - 5                    # Number of dimensions
+  p <- data.frame( ..., freq=freq, alpha, border, hide, stringsAsFactors=FALSE)
+  np <- ncol(p) - 4                    # Number of dimensions
   # check if 'ordering' is of proper form
   if( !is.null(ordering) )
   {
@@ -52,21 +53,39 @@ alluvial <- function( ..., freq,
            np, " components, has ", length(ordering))
   }
   n <- nrow(p)
-  # Layers determine plotting order
+  ## Function for converting colors to hexcodes and set transparency
+  .col2hex <- function(..., alpha = alpha){
+      alpha = floor(255 * alpha)
+      newColor = col2rgb(col=unlist(list(...)), alpha=FALSE)
+      .makeTransparent = function(col, alpha) {
+          rgb(red=col[1], green=col[2], blue=col[3], alpha=alpha, maxColorValue=255)
+      }
+      newColor = apply(newColor, 2, .makeTransparent, alpha=alpha)
+      return(newColor)
+  }
+  ## check the form in which colour is supplied
+  if(length(col) == 1 & is.character(col))
+  {
+      dcol <- .col2hex(rep(col, n), alpha = alpha)
+   } else if(length(col) > 1 & is.character(col)) {
+       if(n != length(col) )
+           stop("color vector length is not correct")
+       dcol <- .col2hex(col, alpha = alpha)
+   } else if(class(col) == "data.frame") {
+       if(np != ncol(col) | n != nrow(col))
+           stop("color data.frame dimensions are not correct")
+       dcol <- as.data.frame( apply(col, 2, .col2hex, alpha = alpha) )
+  }
+  ## Layers determine plotting order
   if(missing(layer))
   {
     layer <- 1:n
   }
   p$layer <- layer
+  dcol$layer <- layer
   d <- p[ , 1:np, drop=FALSE]          # Dimensions dframe
   p <- p[ , -c(1:np), drop=FALSE]      # Parameteres dframe
   p$freq <- with(p, freq/sum(freq))    # Frequencies (weights)
-  # Converting colors to hexcodes
-  col <- col2rgb(p$col, alpha=TRUE)
-  if(!identical(alpha, FALSE)) {
-    col["alpha", ] <- p$alpha*256
-  }
-  p$col <- apply(col, 2, function(x) do.call(rgb, c(as.list(x), maxColorValue = 256)))
   # convert character vectors in data to factors
   isch <- sapply(d, is.character)
   d[isch] <- lapply(d[isch], as.factor)
@@ -138,7 +157,7 @@ alluvial <- function( ..., freq,
              c( dd[[j]][i, c(1, 2, 2)], rev(dd[[j+1]][i, c(1, 1, 2, 2)]), dd[[j]][i,c(1, 1)]), 
              shape = c(0,0,1,1,0,0,1,1,0, 0),
              open=FALSE,
-             col=p$col[i], border=p$border[i])
+             col=dcol[i,j], border=p$border[i])
     }
   }
   # Category blocks with labels
@@ -162,14 +181,14 @@ alluvial <- function( ..., freq,
                       x[2], x[2], x[2] - w, x[1] + w, x[1]),
                 y = c(y[c(1, 2, 2), 1], y[c(2, 2, 1, 1), 2], y[c(1, 1), 1]),
                 shape = c(0, 0, 1, 1, 0, 0, 1, 1, 0, 0),
-                open = FALSE, col = p$col[i], border = p$border[i])
+                open = FALSE, col = p$col[i,j], border = p$border[i])
       }
     }
     for(k in seq_along(ax))
     {
       text( j, mean(ax[[k]]), labels=names(ax)[k], cex=cex)
     }
-  }           
+  }
   # X axis
   axis(1, at= rep(c(-cw, cw), ncol(d)) + rep(seq_along(d), each=2),
        line=0.5, col="white", col.ticks="black", labels=FALSE)
@@ -177,4 +196,3 @@ alluvial <- function( ..., freq,
   par(op)
   invisible(rval)
 }
-
