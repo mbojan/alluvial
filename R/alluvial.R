@@ -63,19 +63,22 @@ alluvial <- function( ..., freq,
       newColor = apply(newColor, 2, .makeTransparent, alpha=alpha)
       return(newColor)
   }
-  ## check the form in which colour is supplied
+  ## check the form in which colour is supplied and make into data.frame
   if(length(col) == 1 & is.character(col))
   {
-      dcol <- .col2hex(rep(col, n), alpha = alpha)
-   } else if(length(col) > 1 & is.character(col)) {
-       if(n != length(col) )
-           stop("color vector length is not correct")
-       dcol <- .col2hex(col, alpha = alpha)
-   } else if(class(col) == "data.frame") {
-       if(np != ncol(col) | n != nrow(col))
-           stop("color data.frame dimensions are not correct")
-       dcol <- as.data.frame( apply(col, 2, .col2hex, alpha = alpha) )
+      dcol <- matrix(.col2hex(rep(col, n*np), alpha = alpha),
+                     ncol = np)
+  } else if(length(col) > 1 & is.character(col)) {
+      if(n != length(col) )
+          stop("color vector length is not correct")
+      dcol <- matrix(rep(.col2hex(col, alpha = alpha), np),
+                     ncol = np)
+  } else if(class(col) == "data.frame") {
+      if(np != ncol(col) | n != nrow(col))
+          stop("color data.frame dimensions are not correct")
+      dcol <- apply(col, 2, .col2hex, alpha = alpha) 
   }
+  dcol = as.data.frame(dcol)
   ## Layers determine plotting order
   if(missing(layer))
   {
