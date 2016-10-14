@@ -73,10 +73,19 @@ alluvial <- function( ..., freq,
           stop("color vector length is not correct")
       dcol <- matrix(rep(.col2hex(col, alpha = alpha), np),
                      ncol = np)
+  } else if(length(col) > 1 & is.numeric(col)){
+      if(n != length(col) )
+          stop("color vector length is not correct")
+      col <- col2rgb(col)
+      col <- apply(col, 2, function(x) do.call(rgb, c(as.list(x), maxColorValue = 256)))
+      dcol <- matrix(rep(.col2hex(col, alpha = alpha), np),
+                     ncol = np)
   } else if(class(col) == "data.frame") {
       if(np != ncol(col) | n != nrow(col))
           stop("color data.frame dimensions are not correct")
       dcol <- apply(col, 2, .col2hex, alpha = alpha) 
+  }else{
+      stop("something is wrong with the color")
   }
   dcol = as.data.frame(dcol)
   ## Layers determine plotting order
