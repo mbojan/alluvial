@@ -15,6 +15,7 @@
 #' @param blocks logical, whether to use blocks to tie the flows together at each category, versus contiguous ribbons (also admits character value "bookends")
 #' @param ordering list of numeric vectors allowing to reorder the alluvia on each axis separately, see Examples
 #' @param axis_labels character, labels of the axes, defaults to variable names in the data
+#' @param mar numeric, plot margins as in \code{\link{par}}
 #' @param cex,cex.axis numeric, scaling of fonts of category labels and axis labels respectively. See \code{\link{par}}.
 #'
 #' @return Invisibly a list with elements:
@@ -38,6 +39,7 @@ alluvial <- function( ..., freq,
                      blocks = TRUE,
                      ordering=NULL,
                      axis_labels=NULL,
+                     mar = c(2, 1, 1, 1),
                      cex=par("cex"),
                      cex.axis=par("cex.axis"))
 {
@@ -154,7 +156,7 @@ alluvial <- function( ..., freq,
   dd <- lapply(seq_along(d), getp, d=d, f=p$freq)
   rval <- list( endpoints=dd )
   # Plotting
-  op <- par(mar=c(2, 1, 1, 1))
+  op <- par(mar=mar)
   plot(NULL, type="n", xlim=c(1-cw, np+cw), ylim=c(0, 1), xaxt="n", yaxt="n",
        xaxs="i", yaxs="i", xlab='', ylab='', frame=FALSE)
   # For every stripe

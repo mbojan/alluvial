@@ -6,8 +6,8 @@
 \usage{
 alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
   alpha = 0.5, gap.width = 0.05, xw = 0.1, cw = 0.1, blocks = TRUE,
-  ordering = NULL, axis_labels = NULL, cex = par("cex"),
-  cex.axis = par("cex.axis"))
+  ordering = NULL, axis_labels = NULL, mar = c(2, 1, 1, 1),
+  cex = par("cex"), cex.axis = par("cex.axis"))
 }
 \arguments{
 \item{...}{vectors or data frames, all for the same number of observations}
@@ -35,6 +35,8 @@ alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
 \item{ordering}{list of numeric vectors allowing to reorder the alluvia on each axis separately, see Examples}
 
 \item{axis_labels}{character, labels of the axes, defaults to variable names in the data}
+
+\item{mar}{numeric, plot margins as in \code{\link{par}}}
 
 \item{cex, cex.axis}{numeric, scaling of fonts of category labels and axis labels respectively. See \code{\link{par}}.}
 }
