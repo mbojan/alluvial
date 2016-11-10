@@ -17,6 +17,9 @@
 #' @param axis_labels character, labels of the axes, defaults to variable names in the data
 #' @param mar numeric, plot margins as in \code{\link{par}}
 #' @param cex,cex.axis numeric, scaling of fonts of category labels and axis labels respectively. See \code{\link{par}}.
+#' @param xlim_offset,ylim_offset numeric vectors of length 2, passed to
+#'   \code{xlim} and \code{ylim} of \code{\link{plot}}, and allow for adjusting
+#'   the limits of the plotting region
 #'
 #' @return Invisibly a list with elements:
 #' \item{endpoints}{A list of matrices of y-coordinates of endpoints of the
@@ -40,6 +43,8 @@ alluvial <- function( ..., freq,
                      axis_labels=NULL,
                      mar = c(2, 1, 1, 1),
                      cex=par("cex"),
+                     xlim_offset= c(0, 0),
+                     ylim_offset= c(0, 0),
                      cex.axis=par("cex.axis"))
 {
   # Data and graphical parameters
@@ -126,7 +131,7 @@ alluvial <- function( ..., freq,
   rval <- list( endpoints=dd )
   # Plotting
   op <- par(mar=mar)
-  plot(NULL, type="n", xlim=c(1-cw, np+cw), ylim=c(0, 1), xaxt="n", yaxt="n",
+  plot(NULL, type="n", xlim=c(1-cw, np+cw) + xlim_offset, ylim=c(0, 1) + ylim_offset, xaxt="n", yaxt="n",
        xaxs="i", yaxs="i", xlab='', ylab='', frame=FALSE)
   # For every stripe
   ind <- which(!p$hide)[rev(order(p[!p$hide, ]$layer))]
