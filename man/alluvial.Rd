@@ -14,7 +14,7 @@ alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
 
 \item{freq}{numeric, vector of frequencies of the same length as the number of observations}
 
-\item{col}{vector or data.frame of colors of the stripes}
+\item{col}{vector of colors of the stripes}
 
 \item{border}{vector of border colors for the stripes}
 
