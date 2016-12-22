@@ -31,21 +31,23 @@ knitr::opts_chunk$set(
 
 Alluvial diagram is a variant of a Parallel Coordinates Plot (PCP) but for categorical variables. Variables are assigned to vertical axes that are parallel. Values are represented with blocks on each axis. Observations are represented with *alluvia* (sing. "alluvium") spanning across all the axes.
 
-You create alluvial diagrams with function `alluvial()`. This is one example using `Titanic` dataset. Let's convert it to a data frame
+You create alluvial diagrams with function `alluvial()`. Let us use `Titanic` dataset as an example. As it is a `table`, we need to convert it to a data frame
 
 ```{r data}
 tit <- as.data.frame(Titanic, stringsAsFactors = FALSE)
 head(tit)
 ```
 
-and create the alluvial diagram.
+and create the alluvial diagram:
 
 ```{r example}
-alluvial(tit[,1:4], freq=tit$Freq,
-         col = ifelse(tit$Survived == "Yes", "orange", "grey"),
-         border = ifelse(tit$Survived == "Yes", "orange", "grey"),
-         hide = tit$Freq == 0,
-         cex = 0.7
+alluvial(
+  tit[,1:4], 
+  freq=tit$Freq,
+  col = ifelse(tit$Survived == "Yes", "orange", "grey"),
+  border = ifelse(tit$Survived == "Yes", "orange", "grey"),
+  hide = tit$Freq == 0,
+  cex = 0.7
 )
 ```
 
@@ -71,7 +73,7 @@ Alluvial diagrams are very useful in reading various conditional and uncoditiona
 
 # Simple use
 
-Minimal use requires supplying data frame(s) as first argument, and a vector of frequencies as the `freq` argument. By default all alluvia are drawn using gray, mildly transparent colors.
+Minimal use requires supplying data frame(s) as first argument, and a vector of frequencies as the `freq` argument. By default all alluvia are drawn using mildly transparent gray.
 
 Two variables `Class` and `Survived`:
 
@@ -124,7 +126,7 @@ alluvial(
 
 ### Hiding
 
-With `alluvial` sometimes it is desirable to hide omit plotting some of the alluvia. This is most frequently the case with larger datasets in which there are a lot of combinations of values of the variables associated with very small frequencies, or even 0s. Alluvia can be hidden with argument `hide` expecting a logical vector of length equal to the number of rows in the data. Alluvia for which `hide` is `FALSE` are not plotted. For example, to hide alluvia with frequency less than 150:
+With `alluvial` sometimes it is desirable to omit plotting of some of the alluvia. This is most frequently the case with larger datasets in which there are a lot of combinations of values of the variables associated with very small frequencies, or even 0s. Alluvia can be hidden with argument `hide` expecting a logical vector of length equal to the number of rows in the data. Alluvia for which `hide` is `FALSE` are not plotted. For example, to hide alluvia with frequency less than 150:
 
 ```{r alluvial_hide}
 alluvial(tit2d[,1:2], freq=tit2d$n, hide=tit2d$n < 150)
@@ -141,9 +143,17 @@ You can see the gaps e.g. on the "Yes" and "No" category blocks on the `Survived
 
 If you would rather omit these rows from the plot alltogether (i.e. no gaps), you need to filter your data before it is used by `alluvial()`.
 
+
+
+
+
+
+
+
+
 ### Changing "layers"
 
-By default alluvia are plotted in the same order in which the rows are ordered in the dataset.
+By default alluvia are plotted in sequence determined by the row order in the dataset. It determines which alluvia will be plotted "on top" of which others.
 
 Consider simple data:
 
@@ -183,6 +193,13 @@ alluvial(tit3d[,1:3], freq=tit3d$n,
 
 First layer is the one on top, second layer below the first and so on. Consequently, in the example above, `Survived == "No"` is ordered after `Survived == "Yes"` so the former is below the latter.
 
+
+
+
+
+
+
+
 ### Adjusting vertical order of categories
 
 By default `alluvial()` orders the values on each axis in an alphabetic order. This happens irrespectively of the ordering of observations in the plotted dataset. It is possible to override the default ordering by transforming the variables of interest into `factor`s with a custom ordering of levels. 
@@ -190,7 +207,6 @@ By default `alluvial()` orders the values on each axis in an alphabetic order. T
 Consider the following example data:
 
 ```{r catorder_data}
-# Ordering categories
 d <- data.frame(
   col = RColorBrewer::brewer.pal(8, "Paired"),
   Temperature = rep(c("cool", "hot"), each=4),
@@ -207,19 +223,25 @@ Plotting it with `alluvial()` with default settings will give:
 
 ```{r catorder_alluvial_defaults}
 alluvial(
-  select(d, Color, Temperature, Luminance),
+  select(d, Temperature, Luminance, Color),
   freq=d$n,
   col = d$col,
   alpha=0.9
 )
 ```
 
-Let's change the order of the `Color` variable such that it is (from the bottom): green, blue, orange, red. We create a factor with a vector of unique values of that variable sorted the way we want passed to `levels` argument of `factor()`:
+Let's change the order of categories of:
+
+- the `Color` axis such that it is (from the bottom): green, blue, orange, red.
+- the `Luminance` axis such that it is reversed.
+
+For each variable we create a factor with a vector of unique values of that variable sorted the way we want passed to `levels` argument of `factor()`:
 
 ```{r catorder_data_factor}
 d <- d %>%
   mutate(
-    Color_f = factor(Color, levels=c("green", "blue", "orange", "red"))
+    Color_f = factor(Color, levels=c("green", "blue", "red", "orange")),
+    Luminance_f = factor(Luminance, levels=c("dark", "bright"))
   )
 ```
 
@@ -227,7 +249,18 @@ d <- d %>%
 
 ```{r catorder_alluvial_factor}
 alluvial(
-  select(d, Color_f, Temperature, Luminance),
+  select(d, Temperature, Luminance_f, Color_f),
+  freq=d$n,
+  col = d$col,
+  alpha=0.9
+)
+```
+
+Another version recognizing that in data `Color` is nested in `Temperature`. Different axis order gives clearer picture of the data structure.
+
+```{r catorder_alluvial_factor2}
+alluvial(
+  select(d, Temperature, Color_f, Luminance_f),
   freq=d$n,
   col = d$col,
   alpha=0.9
@@ -236,12 +269,9 @@ alluvial(
 
 
 
-
-
-
 ### Adjusting vertical order of alluvia
 
-**This is feature is experimental!**
+**This feature is experimental!**
 
 Usually the order of the variables (axes) is rather unimportant. However, having particular two variables next to each other facilitates analyzing dependency between those two variables. In alluvial diagrams the ordering of the variables determines the vertical plotting order of the alluvia. This vertical order, together with setting `blocks` to `FALSE`, can be used to turn category blocks into stacked barcharts.
 
