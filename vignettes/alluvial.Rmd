@@ -208,7 +208,8 @@ Consider the following example data:
 
 ```{r catorder_data}
 d <- data.frame(
-  col = RColorBrewer::brewer.pal(8, "Paired"),
+  col = c("#A6CEE3", "#1F78B4", "#B2DF8A", "#33A02C", "#FB9A99", 
+          "#E31A1C", "#FDBF6F", "#FF7F00"), # from RColorBrewer Paired palette
   Temperature = rep(c("cool", "hot"), each=4),
   Luminance = rep(c("bright", "dark"), 4),
   Color = rep(c("blue", "green", "red", "orange"), each=2)
