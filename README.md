@@ -96,4 +96,7 @@ Using "devtools" package:
 
 ``` r
 devtools::install_github("mbojan/alluvial")
+
+# To have the vignettes build use
+devtools::install_github("mbojan/alluvial", build_vignettes=TRUE)
 ```
