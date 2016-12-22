@@ -183,8 +183,63 @@ alluvial(tit3d[,1:3], freq=tit3d$n,
 
 First layer is the one on top, second layer below the first and so on. Consequently, in the example above, `Survived == "No"` is ordered after `Survived == "Yes"` so the former is below the latter.
 
+### Adjusting vertical order of categories
 
-### Adjusting vertical order
+By default `alluvial()` orders the values on each axis in an alphabetic order. This happens irrespectively of the ordering of observations in the plotted dataset. It is possible to override the default ordering by transforming the variables of interest into `factor`s with a custom ordering of levels. 
+
+Consider the following example data:
+
+```{r catorder_data}
+# Ordering categories
+d <- data.frame(
+  col = RColorBrewer::brewer.pal(8, "Paired"),
+  Temperature = rep(c("cool", "hot"), each=4),
+  Luminance = rep(c("bright", "dark"), 4),
+  Color = rep(c("blue", "green", "red", "orange"), each=2)
+) %>%
+  mutate(
+    n = 1
+  )
+d
+```
+
+Plotting it with `alluvial()` with default settings will give:
+
+```{r catorder_alluvial_defaults}
+alluvial(
+  select(d, Color, Temperature, Luminance),
+  freq=d$n,
+  col = d$col,
+  alpha=0.9
+)
+```
+
+Let's change the order of the `Color` variable such that it is (from the bottom): green, blue, orange, red. We create a factor with a vector of unique values of that variable sorted the way we want passed to `levels` argument of `factor()`:
+
+```{r catorder_data_factor}
+d <- d %>%
+  mutate(
+    Color_f = factor(Color, levels=c("green", "blue", "orange", "red"))
+  )
+```
+
+... and plot
+
+```{r catorder_alluvial_factor}
+alluvial(
+  select(d, Color_f, Temperature, Luminance),
+  freq=d$n,
+  col = d$col,
+  alpha=0.9
+)
+```
+
+
+
+
+
+
+### Adjusting vertical order of alluvia
 
 **This is feature is experimental!**
 
@@ -275,27 +330,6 @@ alluvial(tit[,c(4,2,3)], freq=tit$Freq,
 
 
 
-```{r, eval=FALSE, echo=FALSE}
-d <- expand.grid(a=1:2, b=1:2, c=1:2)
-d %>%
-  mutate(
-    z=a,
-    n = rep(1, nrow(d)) 
-  ) -> d
-
-alluvial(
-  d[,1:4], 
-  freq=d$n, 
-  col=RColorBrewer::brewer.pal(8, "Paired"),
-  blocks=FALSE,
-  ordering = list(
-    NULL,
-    NULL,
-    order(d$b),
-    NULL
-  )
-  )
-```
 
 
 
