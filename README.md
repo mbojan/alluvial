@@ -51,7 +51,7 @@ alluvial(
   )
 ```
 
-![plot of chunk alluvial](internal/alluvial-1.png)
+![plot of chunk alluvial](tools/alluvial-1.png)
 
 
 
@@ -86,7 +86,7 @@ alluvial_ts(Refugees, wave = .3, ygap = 5, col = cols, plotdir = 'centred', alph
             title = "UNHCR-recognised refugees\nTop 10 countries (2003-13)\n")
 ```
 
-![plot of chunk alluvial_ts](internal/alluvial_ts-1.png)
+![plot of chunk alluvial_ts](tools/alluvial_ts-1.png)
 
 
 
