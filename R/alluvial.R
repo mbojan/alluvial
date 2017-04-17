@@ -20,6 +20,7 @@
 #' @param xlim_offset,ylim_offset numeric vectors of length 2, passed to
 #'   \code{xlim} and \code{ylim} of \code{\link{plot}}, and allow for adjusting
 #'   the limits of the plotting region
+#' @param title character, plot title
 #'
 #' @return Invisibly a list with elements:
 #' \item{endpoints}{A list of matrices of y-coordinates of endpoints of the
@@ -45,7 +46,8 @@ alluvial <- function( ..., freq,
                      cex=par("cex"),
                      xlim_offset= c(0, 0),
                      ylim_offset= c(0, 0),
-                     cex.axis=par("cex.axis"))
+                     cex.axis=par("cex.axis"),
+                     title = "")
 {
   # Data and graphical parameters
   p <- data.frame( ..., freq=freq, col, alpha, border, hide, stringsAsFactors=FALSE)
@@ -132,7 +134,7 @@ alluvial <- function( ..., freq,
   # Plotting
   op <- par(mar=mar)
   plot(NULL, type="n", xlim=c(1-cw, np+cw) + xlim_offset, ylim=c(0, 1) + ylim_offset, xaxt="n", yaxt="n",
-       xaxs="i", yaxs="i", xlab='', ylab='', frame=FALSE)
+       xaxs="i", yaxs="i", xlab='', ylab='', main=title, frame=FALSE)
   # For every stripe
   ind <- which(!p$hide)[rev(order(p[!p$hide, ]$layer))]
   for(i in ind )
