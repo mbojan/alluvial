@@ -110,4 +110,3 @@ names(d) = c('pop_group','age_group','deaths')
 alluvial_ts(d)
 }
 }
-

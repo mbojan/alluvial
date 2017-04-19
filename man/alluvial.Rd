@@ -8,7 +8,7 @@ alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
   alpha = 0.5, gap.width = 0.05, xw = 0.1, cw = 0.1, blocks = TRUE,
   ordering = NULL, axis_labels = NULL, mar = c(2, 1, 1, 1),
   cex = par("cex"), xlim_offset = c(0, 0), ylim_offset = c(0, 0),
-  cex.axis = par("cex.axis"))
+  cex.axis = par("cex.axis"), title = NULL)
 }
 \arguments{
 \item{...}{vectors or data frames, all for the same number of observations}
@@ -44,6 +44,8 @@ alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
 \item{xlim_offset, ylim_offset}{numeric vectors of length 2, passed to
 \code{xlim} and \code{ylim} of \code{\link{plot}}, and allow for adjusting
 the limits of the plotting region}
+
+\item{title}{character, plot title}
 }
 \value{
 Invisibly a list with elements:
@@ -114,4 +116,3 @@ x <- alluvial( tit2d[,1:2], freq=tit2d$Freq, xw=0.0, alpha=0.8,
 points( rep(1, 16), x$endpoints[[1]], col="green")
 points( rep(2, 16), x$endpoints[[2]], col="blue")
 }
-

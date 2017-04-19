@@ -20,4 +20,3 @@ Top 10 countries/territories of origin (excluding "Various") for period
 with the UNHCR Statute, persons granted a complementary form of protection
 and those granted temporary protection."
 }
-
