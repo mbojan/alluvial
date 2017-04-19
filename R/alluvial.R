@@ -47,7 +47,7 @@ alluvial <- function( ..., freq,
                      xlim_offset= c(0, 0),
                      ylim_offset= c(0, 0),
                      cex.axis=par("cex.axis"),
-                     title = "")
+                     title = NULL)
 {
   # Data and graphical parameters
   p <- data.frame( ..., freq=freq, col, alpha, border, hide, stringsAsFactors=FALSE)
