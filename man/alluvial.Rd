@@ -8,7 +8,7 @@ alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
   alpha = 0.5, gap.width = 0.05, xw = 0.1, cw = 0.1, blocks = TRUE,
   ordering = NULL, axis_labels = NULL, mar = c(2, 1, 1, 1),
   cex = par("cex"), xlim_offset = c(0, 0), ylim_offset = c(0, 0),
-  cex.axis = par("cex.axis"), title = "")
+  cex.axis = par("cex.axis"), title = NULL)
 }
 \arguments{
 \item{...}{vectors or data frames, all for the same number of observations}
