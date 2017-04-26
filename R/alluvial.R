@@ -25,8 +25,14 @@
 #' @param title character, plot title
 #'
 #' @return Invisibly a list with elements:
-#' \item{endpoints}{A list of matrices of y-coordinates of endpoints of the
-#' alluvia. x-coordinates are consecutive natural numbers.}
+#' \item{\code{endpoints}}{A data frame with data on locations of the stripes
+#' \describe{
+#' \item{\code{...}}{Vectors/data frames supplied to \code{alluvial} through \code{...} that define the axes}
+#' \item{\code{.bottom},\code{.top}}{Y locations of bottom and top
+#' coordinates respectively at which the stripes originate from the axis \code{.axis}}
+#' \item{\code{.axis}}{Axis number counting from the left}
+#' }
+#' }
 #' 
 #' @note Please mind that the API is planned to change to be more compatible
 #'   with \pkg{dplyr} verbs.
@@ -134,7 +140,6 @@ alluvial <- function( ..., freq,
   # Calculate stripe locations on dimensions: list of data frames. A component
   # for a dimension. Data frame contains 'y' locations of stripes.
   dd <- lapply(seq_along(d), getp, d=d, f=p$freq)
-  rval <- list( endpoints=dd )
   # Plotting
   op <- par(mar=mar)
   plot(NULL, type="n", xlim=c(1-cw, np+cw) + xlim_offset, ylim=c(0, 1) + ylim_offset, xaxt="n", yaxt="n",
@@ -190,6 +195,24 @@ alluvial <- function( ..., freq,
     axis(1, at=seq_along(d), tick=FALSE, labels=axis_labels, cex.axis=cex.axis)
   }
   par(op)
+  rval <- list(
+    # Endpoints of alluvia
+    endpoints = do.call(
+      "rbind",
+      lapply(
+        seq(along=dd),
+        function(i) {
+          df <- as.data.frame(
+            structure(dd[[i]], dimnames=list(NULL,c(".bottom", ".top"))),
+            stringsAsFactors=FALSE
+          )
+          df$.axis <- i
+          cbind(d, df)
+        }
+      )
+    )
+    
+  )
   invisible(rval)
 }
 
