@@ -25,14 +25,17 @@
 #' @param title character, plot title
 #'
 #' @return Invisibly a list with elements:
-#' \item{\code{endpoints}}{A data frame with data on locations of the stripes
+#' \item{\code{endpoints}}{A data frame with data on locations of the stripes with columns:
 #' \describe{
-#' \item{\code{...}}{Vectors/data frames supplied to \code{alluvial} through \code{...} that define the axes}
-#' \item{\code{.bottom},\code{.top}}{Y locations of bottom and top
-#' coordinates respectively at which the stripes originate from the axis \code{.axis}}
+#' \item{\code{...}}{Vectors/data frames supplied to
+#' \code{alluvial} through \code{...} that define the axes}
+#' \item{\code{.bottom},\code{.top}}{Y locations of bottom
+#' and top coordinates respectively at which the stripes
+#' originate from the axis \code{.axis}}
 #' \item{\code{.axis}}{Axis number counting from the left}
-#' }
-#' }
+#' } }
+#' \item{\code{category_midpoints}}{List of vectors of Y
+#' locations of category block midpoints.}
 #' 
 #' @note Please mind that the API is planned to change to be more compatible
 #'   with \pkg{dplyr} verbs.
@@ -211,7 +214,24 @@ alluvial <- function( ..., freq,
         }
       )
     )
-    
+  )
+  # Category midpoints
+  rval$category_midpoints <- structure(
+    lapply(
+      seq(1, ncol(d)),
+      function(i) {
+        mi <- with(
+          subset(rval$endpoints, .axis == i),
+          tapply(.bottom, d[[i]], min)
+        )
+        ma <- with(
+          subset(rval$endpoints, .axis == i),
+          tapply(.bottom, d[[i]], max)
+        )
+        (mi + ma)/2
+      }
+    ),
+    names = names(d)
   )
   invisible(rval)
 }
