@@ -49,54 +49,75 @@ alluvial <- function( ..., freq,
                      cex.axis=par("cex.axis"),
                      title = NULL)
 {
-  # Data and graphical parameters
-  p <- data.frame( ..., freq=freq, col, alpha, border, hide, stringsAsFactors=FALSE)
-  np <- ncol(p) - 5                    # Number of dimensions
-  # check if 'ordering' is of proper form
-  if( !is.null(ordering) )
-  {
+  # TEMP: the goal is to allow vector or matrix inputs to each aesthetic param
+  
+  # Dimensions data frame
+  d <- data.frame(
+    ...,
+    stringsAsFactors = FALSE
+  )
+  np <- ncol(d)
+  n <- nrow(d)
+  # Check if 'ordering' is of proper form
+  if ( !is.null(ordering) ) {
     stopifnot(is.list(ordering))
     if( length(ordering) != np )
       stop("'ordering' argument should have ",
            np, " components, has ", length(ordering))
   }
-  n <- nrow(p)
+  # Convert character fields to factors
+  isch <- sapply(d, is.character)
+  d[isch] <- lapply(d[isch], as.factor)
+  # Frequencies (weights)
+  f <- data.frame(
+    d,
+    freq = freq / sum(freq)
+  )$freq
+  
+  # Transform aesthetics
+  flow_matrix <- function(x, n) {
+    d <- data.frame(X = 1:n)
+    d <- transform(d, x = x)
+    unname(as.matrix(d[, -1]))
+  }
+  # Aesthetics list
+  p <- lapply(list(
+    col = col,
+    border = border
+  ), flow_matrix, n = n)
+  p$hide <- hide
+  # Converting colors to hexcodes
+  hexcol <- col2rgb(p$col, alpha = TRUE)
+  if(!identical(alpha, FALSE)) {
+    hexcol["alpha", ] <- p$alpha * 256
+  }
+  p$col <- apply(p$col, 2, function(x) {
+    do.call(rgb, c(as.list(x), maxColorValue = 256))
+  })
   # Layers determine plotting order
-  if(missing(layer))
-  {
+  if ( missing(layer) ) {
     layer <- 1:n
   }
   p$layer <- layer
-  d <- p[ , 1:np, drop=FALSE]          # Dimensions dframe
-  p <- p[ , -c(1:np), drop=FALSE]      # Parameteres dframe
-  p$freq <- with(p, freq/sum(freq))    # Frequencies (weights)
-  # Converting colors to hexcodes
-  col <- col2rgb(p$col, alpha=TRUE)
-  if(!identical(alpha, FALSE)) {
-    col["alpha", ] <- p$alpha*256
-  }
-  p$col <- apply(col, 2, function(x) do.call(rgb, c(as.list(x), maxColorValue = 256)))
-  # convert character vectors in data to factors
-  isch <- sapply(d, is.character)
-  d[isch] <- lapply(d[isch], as.factor)
+  
   # Convert blocks to vector
-  if (length(blocks) == 1)
-  {
+  if (length(blocks) == 1) {
     blocks <- if (!is.na(as.logical(blocks)))
     {
       rep(blocks, np)
-    } else if (blocks == "bookends")
-    {
+    } else if (blocks == "bookends") {
       c(TRUE, rep(FALSE, np - 2), TRUE)
     }
   }
   # Axis labels
-  if(is.null(axis_labels)) {
+  if (is.null(axis_labels)) {
     axis_labels <- names(d)
   } else {
     if(length(axis_labels) != ncol(d))
-      stop("`axis_labels` should have length ", names(d), ", has ", length(axis_labels))
+      stop("`axis_labels` should have length ", ncol(d),
+           ", has ", length(axis_labels))
   }
+  
   # Compute endpoints of flows (polygons)
   # i = dimension id
   # d = data frame of dimensions
@@ -129,8 +150,9 @@ alluvial <- function( ..., freq,
   }
   # Calculate stripe locations on dimensions: list of data frames. A component
   # for a dimension. Data frame contains 'y' locations of stripes.
-  dd <- lapply(seq_along(d), getp, d=d, f=p$freq)
-  rval <- list( endpoints=dd )
+  dd <- lapply(seq_along(d), getp, d = d, f = f)
+  rval <- list( endpoints = dd )
+  
   # Plotting
   op <- par(mar=mar)
   plot(NULL, type="n", xlim=c(1-cw, np+cw) + xlim_offset, ylim=c(0, 1) + ylim_offset, xaxt="n", yaxt="n",
@@ -144,10 +166,10 @@ alluvial <- function( ..., freq,
     {
       # Draw stripe
       xspline( c(j, j, j+xw, j+1-xw, j+1, j+1, j+1-xw, j+xw, j) + rep(c(cw, -cw, cw), c(3, 4, 2)),
-             c( dd[[j]][i, c(1, 2, 2)], rev(dd[[j+1]][i, c(1, 1, 2, 2)]), dd[[j]][i,c(1, 1)]), 
-             shape = c(0,0,1,1,0,0,1,1,0, 0),
-             open=FALSE,
-             col=p$col[i], border=p$border[i])
+               c( dd[[j]][i, c(1, 2, 2)], rev(dd[[j+1]][i, c(1, 1, 2, 2)]), dd[[j]][i,c(1, 1)]), 
+               shape = c(0,0,1,1,0,0,1,1,0, 0),
+               open=FALSE,
+               col=p$col[i, j], border=p$border[i, j])
     }
   }
   # Category blocks with labels
@@ -186,4 +208,3 @@ alluvial <- function( ..., freq,
   par(op)
   invisible(rval)
 }
-
