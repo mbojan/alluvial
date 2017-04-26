@@ -8,7 +8,7 @@ alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
   alpha = 0.5, gap.width = 0.05, xw = 0.1, cw = 0.1, blocks = TRUE,
   ordering = NULL, axis_labels = NULL, mar = c(2, 1, 1, 1),
   cex = par("cex"), xlim_offset = c(0, 0), ylim_offset = c(0, 0),
-  cex.axis = par("cex.axis"), title = NULL)
+  cex.axis = par("cex.axis"), axes = TRUE, ann = TRUE, title = NULL)
 }
 \arguments{
 \item{...}{vectors or data frames, all for the same number of observations}
@@ -45,12 +45,25 @@ alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
 \code{xlim} and \code{ylim} of \code{\link{plot}}, and allow for adjusting
 the limits of the plotting region}
 
+\item{axes}{logical, whether to draw axes, defaults to TRUE}
+
+\item{ann}{logical, whether to draw annotations: category labels. Defaults to TRUE}
+
 \item{title}{character, plot title}
 }
 \value{
 Invisibly a list with elements:
-\item{endpoints}{A list of matrices of y-coordinates of endpoints of the
-alluvia. x-coordinates are consecutive natural numbers.}
+\item{\code{endpoints}}{A data frame with data on locations of the stripes with columns:
+\describe{
+\item{\code{...}}{Vectors/data frames supplied to
+\code{alluvial} through \code{...} that define the axes}
+\item{\code{.bottom},\code{.top}}{Y locations of bottom
+and top coordinates respectively at which the stripes
+originate from the axis \code{.axis}}
+\item{\code{.axis}}{Axis number counting from the left}
+} }
+\item{\code{category_midpoints}}{List of vectors of Y
+locations of category block midpoints.}
 }
 \description{
 Drawing alluvial diagrams, also known as parallel set plots.

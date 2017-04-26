@@ -20,11 +20,22 @@
 #' @param xlim_offset,ylim_offset numeric vectors of length 2, passed to
 #'   \code{xlim} and \code{ylim} of \code{\link{plot}}, and allow for adjusting
 #'   the limits of the plotting region
+#' @param axes logical, whether to draw axes, defaults to TRUE
+#' @param ann logical, whether to draw annotations: category labels. Defaults to TRUE
 #' @param title character, plot title
 #'
 #' @return Invisibly a list with elements:
-#' \item{endpoints}{A list of matrices of y-coordinates of endpoints of the
-#' alluvia. x-coordinates are consecutive natural numbers.}
+#' \item{\code{endpoints}}{A data frame with data on locations of the stripes with columns:
+#' \describe{
+#' \item{\code{...}}{Vectors/data frames supplied to
+#' \code{alluvial} through \code{...} that define the axes}
+#' \item{\code{.bottom},\code{.top}}{Y locations of bottom
+#' and top coordinates respectively at which the stripes
+#' originate from the axis \code{.axis}}
+#' \item{\code{.axis}}{Axis number counting from the left}
+#' } }
+#' \item{\code{category_midpoints}}{List of vectors of Y
+#' locations of category block midpoints.}
 #' 
 #' @note Please mind that the API is planned to change to be more compatible
 #'   with \pkg{dplyr} verbs.
@@ -47,6 +58,8 @@ alluvial <- function( ..., freq,
                      xlim_offset= c(0, 0),
                      ylim_offset= c(0, 0),
                      cex.axis=par("cex.axis"),
+                     axes=TRUE,
+                     ann=TRUE,
                      title = NULL)
 {
   # TEMP: the goal is to allow vector or matrix inputs to each aesthetic param
@@ -198,13 +211,50 @@ alluvial <- function( ..., freq,
     }
     for(k in seq_along(ax))
     {
-      text( j, mean(ax[[k]]), labels=names(ax)[k], cex=cex)
+      if(ann) text( j, mean(ax[[k]]), labels=names(ax)[k], cex=cex)
     }
   }           
   # X axis
-  axis(1, at= rep(c(-cw, cw), ncol(d)) + rep(seq_along(d), each=2),
-       line=0.5, col="white", col.ticks="black", labels=FALSE)
-  axis(1, at=seq_along(d), tick=FALSE, labels=axis_labels, cex.axis=cex.axis)
+  if(axes) {
+    axis(1, at= rep(c(-cw, cw), ncol(d)) + rep(seq_along(d), each=2),
+         line=0.5, col="white", col.ticks="black", labels=FALSE)
+    axis(1, at=seq_along(d), tick=FALSE, labels=axis_labels, cex.axis=cex.axis)
+  }
   par(op)
+  rval <- list(
+    # Endpoints of alluvia
+    endpoints = do.call(
+      "rbind",
+      lapply(
+        seq(along=dd),
+        function(i) {
+          df <- as.data.frame(
+            structure(dd[[i]], dimnames=list(NULL,c(".bottom", ".top"))),
+            stringsAsFactors=FALSE
+          )
+          df$.axis <- i
+          cbind(d, df)
+        }
+      )
+    )
+  )
+  # Category midpoints
+  rval$category_midpoints <- structure(
+    lapply(
+      seq(1, ncol(d)),
+      function(i) {
+        mi <- with(
+          subset(rval$endpoints, .axis == i),
+          tapply(.bottom, d[[i]], min)
+        )
+        ma <- with(
+          subset(rval$endpoints, .axis == i),
+          tapply(.bottom, d[[i]], max)
+        )
+        (mi + ma)/2
+      }
+    ),
+    names = names(d)
+  )
   invisible(rval)
 }
