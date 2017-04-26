@@ -20,6 +20,8 @@
 #' @param xlim_offset,ylim_offset numeric vectors of length 2, passed to
 #'   \code{xlim} and \code{ylim} of \code{\link{plot}}, and allow for adjusting
 #'   the limits of the plotting region
+#' @param axes logical, whether to draw axes, defaults to TRUE
+#' @param ann logical, whether to draw annotations: category labels. Defaults to TRUE
 #' @param title character, plot title
 #'
 #' @return Invisibly a list with elements:
@@ -47,6 +49,8 @@ alluvial <- function( ..., freq,
                      xlim_offset= c(0, 0),
                      ylim_offset= c(0, 0),
                      cex.axis=par("cex.axis"),
+                     axes=TRUE,
+                     ann=TRUE,
                      title = NULL)
 {
   # Data and graphical parameters
@@ -176,13 +180,15 @@ alluvial <- function( ..., freq,
     }
     for(k in seq_along(ax))
     {
-      text( j, mean(ax[[k]]), labels=names(ax)[k], cex=cex)
+      if(ann) text( j, mean(ax[[k]]), labels=names(ax)[k], cex=cex)
     }
   }           
   # X axis
-  axis(1, at= rep(c(-cw, cw), ncol(d)) + rep(seq_along(d), each=2),
-       line=0.5, col="white", col.ticks="black", labels=FALSE)
-  axis(1, at=seq_along(d), tick=FALSE, labels=axis_labels, cex.axis=cex.axis)
+  if(axes) {
+    axis(1, at= rep(c(-cw, cw), ncol(d)) + rep(seq_along(d), each=2),
+         line=0.5, col="white", col.ticks="black", labels=FALSE)
+    axis(1, at=seq_along(d), tick=FALSE, labels=axis_labels, cex.axis=cex.axis)
+  }
   par(op)
   invisible(rval)
 }
