@@ -226,7 +226,7 @@ alluvial <- function( ..., freq,
         )
         ma <- with(
           subset(rval$endpoints, .axis == i),
-          tapply(.bottom, d[[i]], max)
+          tapply(.top, d[[i]], max)
         )
         (mi + ma)/2
       }
