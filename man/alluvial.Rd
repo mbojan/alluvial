@@ -73,7 +73,7 @@ columns:
 \item{\code{.axis_from}, \code{.axis_to}}{IDs of axes that
 a segment originates from and goes to}
 \item{\code{.x}, \code{.y}}{X and Y locations of the alluvium midpoints}
-\item{\code{.slope}}{The (approximate) slope od the alluvium at the midpoint}
+\item{\code{.slope}}{The (approximate) slope of the alluvium at the midpoint}
 }
 }
 }
