@@ -10,13 +10,13 @@ Description: Creating alluvial diagrams (also known as parallel sets plots) for 
   and time series-like data.
 URL: https://github.com/mbojan/alluvial
 BugReports: https://github.com/mbojan/alluvial/issues
+Imports: dplyr, tidyr
 Suggests:
     devtools,
     testthat,
     reshape2,
     knitr,
     rmarkdown,
-    dplyr
 License: MIT + file LICENSE
 LazyLoad: yes
 LazyData: yes
