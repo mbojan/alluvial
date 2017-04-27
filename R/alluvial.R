@@ -48,19 +48,19 @@
 #' @example man-roxygen/alluvial.R
 
 alluvial <- function( ..., freq,
-                     col="gray", border=0, layer, hide=FALSE, alpha=0.5,
-                     gap.width=0.05, xw=0.1, cw=0.1,
-                     blocks = TRUE,
-                     ordering=NULL,
-                     axis_labels=NULL,
-                     mar = c(2, 1, 1, 1),
-                     cex=par("cex"),
-                     xlim_offset= c(0, 0),
-                     ylim_offset= c(0, 0),
-                     cex.axis=par("cex.axis"),
-                     axes=TRUE,
-                     ann=TRUE,
-                     title = NULL)
+                      col="gray", border=0, layer, hide=FALSE, alpha=0.5,
+                      gap.width=0.05, xw=0.1, cw=0.1,
+                      blocks = TRUE,
+                      ordering=NULL,
+                      axis_labels=NULL,
+                      mar = c(2, 1, 1, 1),
+                      cex=par("cex"),
+                      xlim_offset= c(0, 0),
+                      ylim_offset= c(0, 0),
+                      cex.axis=par("cex.axis"),
+                      axes=TRUE,
+                      ann=TRUE,
+                      title = NULL)
 {
   # TEMP: the goal is to allow vector or matrix inputs to each aesthetic param
   
@@ -81,30 +81,28 @@ alluvial <- function( ..., freq,
   # Convert character fields to factors
   isch <- sapply(d, is.character)
   d[isch] <- lapply(d[isch], as.factor)
-  # Frequencies (weights)
-  f <- data.frame(
-    d,
-    freq = freq / sum(freq)
-  )$freq
   
   # Transform aesthetics
-  flow_matrix <- function(x, n) {
-    d <- data.frame(X = 1:n)
-    d <- transform(d, x = x)
-    unname(as.matrix(d[, -1]))
+  flow_matrix <- function(x, n, m) {
+    dd <- data.frame(X = 1:n)
+    dd <- transform(dd, x = matrix(x, nrow = n, ncol = m))
+    unname(as.matrix(dd[, -1]))
   }
+  # Frequencies (weights)
+  f <- flow_matrix(freq / sum(freq), n = n, m = np - 1)
   # Aesthetics list
   p <- lapply(list(
     col = col,
-    border = border
-  ), flow_matrix, n = n)
-  p$hide <- hide
+    alpha = alpha,
+    border = border,
+    hide = hide
+  ), flow_matrix, n = n, m = np - 1)
   # Converting colors to hexcodes
   hexcol <- col2rgb(p$col, alpha = TRUE)
   if(!identical(alpha, FALSE)) {
     hexcol["alpha", ] <- p$alpha * 256
   }
-  p$col <- apply(p$col, 2, function(x) {
+  p$col[] <- apply(hexcol, 2, function(x) {
     do.call(rgb, c(as.list(x), maxColorValue = 256))
   })
   # Layers determine plotting order
@@ -164,17 +162,17 @@ alluvial <- function( ..., freq,
   # Calculate stripe locations on dimensions: list of data frames. A component
   # for a dimension. Data frame contains 'y' locations of stripes.
   dd <- lapply(seq_along(d), getp, d = d, f = f)
-
+  
   # Plotting
   op <- par(mar=mar)
   plot(NULL, type="n", xlim=c(1-cw, np+cw) + xlim_offset, ylim=c(0, 1) + ylim_offset, xaxt="n", yaxt="n",
        xaxs="i", yaxs="i", xlab='', ylab='', main=title, frame=FALSE)
-  # For every stripe
-  ind <- which(!p$hide)[rev(order(p[!p$hide, ]$layer))]
-  for(i in ind )
+  # For every inter-dimensional link
+  for(j in 1:(np-1) )
   {
-    # For every inter-dimensional segment
-    for(j in 1:(np-1) )
+    # For every stripe segment
+    ind <- which(!p$hide[, j])[rev(order(p$layer[which(!p$hide[, j])]))]
+    for(i in ind )
     {
       # Draw stripe
       xspline( c(j, j, j+xw, j+1-xw, j+1, j+1, j+1-xw, j+xw, j) + rep(c(cw, -cw, cw), c(3, 4, 2)),
