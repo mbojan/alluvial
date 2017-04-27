@@ -64,6 +64,18 @@ originate from the axis \code{.axis}}
 } }
 \item{\code{category_midpoints}}{List of vectors of Y
 locations of category block midpoints.}
+\item{\code{alluvium_midpoints}}{A data frame with
+location of midpoints on each alluvium segement with
+columns:
+\describe{
+\item{\code{...}}{Vectors/data frames supplied to
+\code{alluvial} through the \code{...}}
+\item{\code{.axis_from}, \code{.axis_to}}{IDs of axes that
+a segment originates from and goes to}
+\item{\code{.x}, \code{.y}}{X and Y locations of the alluvium midpoints}
+\item{\code{.slope}}{The (approximate) slope od the alluvium at the midpoint}
+}
+}
 }
 \description{
 Drawing alluvial diagrams, also known as parallel set plots.

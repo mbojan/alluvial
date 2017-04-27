@@ -36,12 +36,26 @@
 #' } }
 #' \item{\code{category_midpoints}}{List of vectors of Y
 #' locations of category block midpoints.}
+#' \item{\code{alluvium_midpoints}}{A data frame with
+#' location of midpoints on each alluvium segement with
+#' columns:
+#' \describe{
+#' \item{\code{...}}{Vectors/data frames supplied to
+#' \code{alluvial} through the \code{...}}
+#' \item{\code{.axis_from}, \code{.axis_to}}{IDs of axes that
+#' a segment originates from and goes to}
+#' \item{\code{.x}, \code{.y}}{X and Y locations of the alluvium midpoints}
+#' \item{\code{.slope}}{The (approximate) slope of the alluvium at the midpoint}
+#' }
+#' }
 #' 
 #' @note Please mind that the API is planned to change to be more compatible
 #'   with \pkg{dplyr} verbs.
 #' 
 #' @importFrom grDevices col2rgb rgb
 #' @importFrom graphics plot xspline axis rect polygon text par
+#' @importFrom dplyr select_ group_by_ arrange_ filter_ "%>%" ungroup summarise_
+#' @importFrom tidyr gather_
 #'
 #' @export
 #'
@@ -221,11 +235,11 @@ alluvial <- function( ..., freq,
       seq(1, ncol(d)),
       function(i) {
         mi <- with(
-          subset(rval$endpoints, .axis == i),
+          rval$endpoints[rval$endpoints$.axis == i , ],
           tapply(.bottom, d[[i]], min)
         )
         ma <- with(
-          subset(rval$endpoints, .axis == i),
+          rval$endpoints[ rval$endpoints$.axis == i , ],
           tapply(.top, d[[i]], max)
         )
         (mi + ma)/2
@@ -233,6 +247,26 @@ alluvial <- function( ..., freq,
     ),
     names = names(d)
   )
+  # alluvium midpoints
+  rval$alluvium_midpoints <- rval$endpoints %>%
+    tidyr::gather_(".endpoint", ".value", c(".bottom", ".top")) %>%
+    dplyr::group_by_( .dots=c(names(d), ".axis")) %>%
+    dplyr::summarise_(.dots = list(m = ~mean(.value))) %>%
+    dplyr::arrange_(.dots=c(names(d), ".axis")) %>%
+    dplyr::group_by_( .dots = names(d) ) %>%
+    dplyr::mutate_(.dots=list(
+      .axis_from = ~dplyr::lag(.axis),
+      .axis_to = ".axis",
+      .x = ~(.axis_from + .axis_to)/2,
+      .y = ~(m + dplyr::lag(m))/2,
+      .slope = ~ (m - dplyr::lag(m)) / (.axis_to - .axis_from - cw)
+    )
+    ) %>%
+    dplyr::ungroup() %>%
+    dplyr::filter_(~!is.na(.axis_from)) %>%
+    dplyr::select_(.dots=c(names(d), ".axis_from", ".axis_to", ".x", ".y", ".slope")) %>%
+    as.data.frame(stringsAsFactors=FALSE)
+  
   invisible(rval)
 }
 
