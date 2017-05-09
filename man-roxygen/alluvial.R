@@ -61,4 +61,7 @@ col_mat <- cbind(
   as.numeric(tit$Sex) + 4,
   as.numeric(tit$Age) + 6
 )
-alluvial( tit[,1:4], freq=tit$Freq, border=NA, col=col_mat )
+alpha_mat <- t(replicate(c(1:3 / 4), n = nrow(tit)))
+alluvial( tit[,1:4], freq=tit$Freq,
+          border = ifelse(tit$Class == "Crew", "darkgray", NA),
+          col=col_mat, alpha=alpha_mat )
