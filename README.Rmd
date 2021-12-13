@@ -16,9 +16,11 @@ knitr::render_markdown(strict=FALSE)
 
 # R package for drawing alluvial diagrams
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/mbojan/alluvial/workflows/R-CMD-check/badge.svg)](https://github.com/mbojan/alluvial/actions)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/alluvial?color=2ED968)](http://cranlogs.r-pkg.org/)
 [![cran version](http://www.r-pkg.org/badges/version/alluvial)](https://cran.r-project.org/package=alluvial)
-
+<!-- badges: end -->
 
 What are alluvial diagrams? See for example:
 
