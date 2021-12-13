@@ -4,13 +4,39 @@
 \alias{alluvial_ts}
 \title{Alluvial diagram for multiple time series data}
 \usage{
-alluvial_ts(dat, wave = NA, ygap = 1, col = NA, alpha = NA,
-  plotdir = "up", rankup = FALSE, lab.cex = 1, lab.col = "black",
-  xmargin = 0.1, axis.col = "black", title = NA, title.cex = 1,
-  axis.cex = 1, grid = FALSE, grid.col = "grey80", grid.lwd = 1,
-  leg.mode = TRUE, leg.x = 0.1, leg.y = 0.9, leg.cex = 1,
-  leg.col = "black", leg.lty = NA, leg.lwd = NA, leg.max = NA,
-  xlab = NA, ylab = NA, xlab.pos = 2, ylab.pos = 1, lwd = 1, ...)
+alluvial_ts(
+  dat,
+  wave = NA,
+  ygap = 1,
+  col = NA,
+  alpha = NA,
+  plotdir = "up",
+  rankup = FALSE,
+  lab.cex = 1,
+  lab.col = "black",
+  xmargin = 0.1,
+  axis.col = "black",
+  title = NA,
+  title.cex = 1,
+  axis.cex = 1,
+  grid = FALSE,
+  grid.col = "grey80",
+  grid.lwd = 1,
+  leg.mode = TRUE,
+  leg.x = 0.1,
+  leg.y = 0.9,
+  leg.cex = 1,
+  leg.col = "black",
+  leg.lty = NA,
+  leg.lwd = NA,
+  leg.max = NA,
+  xlab = NA,
+  ylab = NA,
+  xlab.pos = 2,
+  ylab.pos = 1,
+  lwd = 1,
+  ...
+)
 }
 \arguments{
 \item{dat}{data.frame of time-series (or suitable equivalent continuously disaggregated data), with 3 columns (in order: category, time-variable, value) with <= 1 row for each category-time combination}
@@ -102,7 +128,7 @@ alluvial_ts(d, wave = .3, ygap = 5, col = cols, plotdir = 'centred', alpha=.9,
             grid = TRUE, grid.lwd = 5, xmargin = 0.2, lab.cex = .7, xlab = '',
             ylab = '', border = NA, axis.cex = .8, leg.cex = .7,
             leg.col='white', 
-         title = "UNHCR-recognised refugees\\nTop 10 countries (2003-13)\\n")
+         title = "UNHCR-recognised refugees\nTop 10 countries (2003-13)\n")
 
 # non time-series example - Virginia deaths dataset
 d <- reshape2::melt(data.frame(age=row.names(VADeaths), VADeaths), id.vars='age')[,c(2,1,3)]

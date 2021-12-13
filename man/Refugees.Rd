@@ -4,12 +4,14 @@
 \name{Refugees}
 \alias{Refugees}
 \title{Refugees data}
-\format{Data frame with the following columns:
+\format{
+Data frame with the following columns:
 \describe{
 \item{country}{Country or territory of origin}
 \item{year}{Year (2003-13)}
 \item{refugees}{Persons recognized as refugees under the 1951 UN Convention, etc..}
-}}
+}
+}
 \source{
 \url{http://data.un.org/Data.aspx?d=UNHCR&f=indID\%3aType-Ref}
 }

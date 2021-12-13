@@ -3,6 +3,7 @@
 export(alluvial)
 export(alluvial_ts)
 importFrom(dplyr,"%>%")
+importFrom(dplyr,.data)
 importFrom(dplyr,arrange_)
 importFrom(dplyr,filter_)
 importFrom(dplyr,group_by_)

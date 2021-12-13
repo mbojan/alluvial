@@ -4,11 +4,29 @@
 \alias{alluvial}
 \title{Alluvial diagram}
 \usage{
-alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
-  alpha = 0.5, gap.width = 0.05, xw = 0.1, cw = 0.1, blocks = TRUE,
-  ordering = NULL, axis_labels = NULL, mar = c(2, 1, 1, 1),
-  cex = par("cex"), xlim_offset = c(0, 0), ylim_offset = c(0, 0),
-  cex.axis = par("cex.axis"), axes = TRUE, ann = TRUE, title = NULL)
+alluvial(
+  ...,
+  freq,
+  col = "gray",
+  border = 0,
+  layer,
+  hide = FALSE,
+  alpha = 0.5,
+  gap.width = 0.05,
+  xw = 0.1,
+  cw = 0.1,
+  blocks = TRUE,
+  ordering = NULL,
+  axis_labels = NULL,
+  mar = c(2, 1, 1, 1),
+  cex = par("cex"),
+  xlim_offset = c(0, 0),
+  ylim_offset = c(0, 0),
+  cex.axis = par("cex.axis"),
+  axes = TRUE,
+  ann = TRUE,
+  title = NULL
+)
 }
 \arguments{
 \item{...}{vectors or data frames, all for the same number of observations}
@@ -73,7 +91,7 @@ columns:
 \item{\code{.axis_from}, \code{.axis_to}}{IDs of axes that
 a segment originates from and goes to}
 \item{\code{.x}, \code{.y}}{X and Y locations of the alluvium midpoints}
-\item{\code{.slope}}{The (approximate) slope od the alluvium at the midpoint}
+\item{\code{.slope}}{The (approximate) slope of the alluvium at the midpoint}
 }
 }
 }
