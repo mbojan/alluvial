@@ -1,3 +1,11 @@
+---
+output: 
+  github_document:
+    html_preview: false
+editor_options: 
+  chunk_output_type: console
+---
+
 ```{r setup, include=FALSE, cache=FALSE}
 library(alluvial)
 library(dplyr)
@@ -5,8 +13,7 @@ library(dplyr)
 knitr::opts_chunk$set(
   fig.width=8,
   fig.height=6,
-  fig.path = "tools/",
-  error=FALSE
+  fig.path = "tools/"
 )
 
 knitr::render_markdown(strict=FALSE)
@@ -34,7 +41,7 @@ What are alluvial diagrams? See for example:
 Alluvial diagram of `datasets::Titanic` data made with `alluvial()`. Notice how each category block becomes a stacked barchart showing relative frequency of survivors.
 
 ```{r alluvial}
-tit <- tibble::as_data_frame(Titanic)
+tit <- tibble::as_tibble(Titanic)
 
 tit %>% head() %>% knitr::kable()
 
@@ -73,11 +80,14 @@ alluvial_ts(Refugees, wave = .3, ygap = 5, col = cols, plotdir = 'centred', alph
 
 ## Installation
 
-Using "devtools" package:
+Install stable version from CRAN using
 
-``` r
-devtools::install_github("mbojan/alluvial")
+```{r, eval=FALSE}
+install.packages("alluvial")
+```
 
-# To have the vignettes build use
-devtools::install_github("mbojan/alluvial", build_vignettes=TRUE)
+or development version from GitHub using `remotes::install_github()`:
+
+```{r, eval=FALSE}
+remotes::install_github("mbojan/alluvial", build_vignettes=TRUE)
 ```
