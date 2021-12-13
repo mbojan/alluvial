@@ -249,7 +249,7 @@ alluvial <- function( ..., freq,
   )
   # alluvium midpoints
   rval$alluvium_midpoints <- rval$endpoints %>%
-    tidyr::gather_(".endpoint", ".value", c(".bottom", ".top")) %>%
+    tidyr::pivot_longer(one_of(".bottom", ".top"), names_to = ".endpoint", values_to = ".value") %>%
     dplyr::group_by_( .dots=c(names(d), ".axis")) %>%
     dplyr::summarise_(.dots = list(m = ~mean(.value))) %>%
     dplyr::arrange_(.dots=c(names(d), ".axis")) %>%
