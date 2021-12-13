@@ -2,6 +2,7 @@
 output: 
   github_document:
     html_preview: false
+bibliography: vignettes/alluvial.bib
 editor_options: 
   chunk_output_type: console
 ---
@@ -34,6 +35,8 @@ What are alluvial diagrams? See for example:
 * [Wikipedia](http://en.wikipedia.org/wiki/Alluvial_diagram)
 * My [blog post](http://bc.bojanorama.pl/2014/03/alluvial-diagrams) showing-off this package
 * Some discussion on [CrossValidated](http://stats.stackexchange.com/questions/12029/is-it-possible-to-create-parallel-sets-plot-using-r)
+
+This package use base R **graphics** [@r-graphics] package. For Grammar of Graphics implementation see [**ggalluvial**](https://github.com/corybrunson/ggalluvial) [@r-ggalluvial;@ggalluvial-article].
 
 
 ## Examples
@@ -91,3 +94,8 @@ or development version from GitHub using `remotes::install_github()`:
 ```{r, eval=FALSE}
 remotes::install_github("mbojan/alluvial", build_vignettes=TRUE)
 ```
+
+
+
+
+## References

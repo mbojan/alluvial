@@ -18,6 +18,11 @@ What are alluvial diagrams? See for example:
 -   Some discussion on
     [CrossValidated](http://stats.stackexchange.com/questions/12029/is-it-possible-to-create-parallel-sets-plot-using-r)
 
+This package use base R **graphics** (R Core Team 2021) package. For
+Grammar of Graphics implementation see
+[**ggalluvial**](https://github.com/corybrunson/ggalluvial) (Brunson and
+Read 2020; Brunson 2020).
+
 ## Examples
 
 Alluvial diagram of `datasets::Titanic` data made with `alluvial()`.
@@ -95,3 +100,32 @@ or development version from GitHub using `remotes::install_github()`:
 ``` r
 remotes::install_github("mbojan/alluvial", build_vignettes=TRUE)
 ```
+
+## References
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-ggalluvial-article" class="csl-entry">
+
+Brunson, Jason Cory. 2020. “<span class="nocase">ggalluvial</span>:
+Layered Grammar for Alluvial Plots.” *Journal of Open Source Software* 5
+(49): 2017. <https://doi.org/10.21105/joss.02017>.
+
+</div>
+
+<div id="ref-r-ggalluvial" class="csl-entry">
+
+Brunson, Jason Cory, and Quentin D. Read. 2020. “Ggalluvial: Alluvial
+Plots in ’Ggplot2’.” <http://corybrunson.github.io/ggalluvial/>.
+
+</div>
+
+<div id="ref-r-graphics" class="csl-entry">
+
+R Core Team. 2021. *R: A Language and Environment for Statistical
+Computing*. Vienna, Austria: R Foundation for Statistical Computing.
+<https://www.R-project.org/>.
+
+</div>
+
+</div>
