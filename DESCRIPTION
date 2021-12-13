@@ -3,9 +3,10 @@ Type: Package
 Title: Alluvial Diagrams
 Version: 0.2-0
 Date: 2017-04-07
-Authors@R: c( person("Michal", "Bojanowski", role=c("aut", "cre"),
-    email="michal2992@gmail.com"), person("Robin", "Edwards", role="aut",
-    email="robin.edwards@ucl.ac.uk") )
+Authors@R: c(
+    person("Michał", "Bojanowski", role=c("ctb"), email="michal2992@gmail.com", comment=c(ORCID="0000-0001-7503-852X")),
+    person("Robin", "Edwards", role="aut", email="robin.edwards@ucl.ac.uk")
+)
 Description: Creating alluvial diagrams (also known as parallel sets plots) for multivariate
   and time series-like data.
 URL: https://github.com/mbojan/alluvial
