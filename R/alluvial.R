@@ -54,7 +54,7 @@
 #' 
 #' @importFrom grDevices col2rgb rgb
 #' @importFrom graphics plot xspline axis rect polygon text par
-#' @importFrom dplyr select_ group_by_ arrange_ filter_ "%>%" ungroup summarise_
+#' @importFrom dplyr select_ group_by_ arrange_ filter_ "%>%" ungroup summarise_ .data
 #' @importFrom tidyr gather_
 #'
 #' @export
@@ -254,21 +254,21 @@ alluvial <- function( ..., freq,
     lapply(as.name)
   
   rval$alluvium_midpoints <- rval$endpoints %>%
-    tidyr::pivot_longer(one_of(".bottom", ".top"), names_to = ".endpoint", values_to = ".value") %>%
+    tidyr::pivot_longer(dplyr::one_of(".bottom", ".top"), names_to = ".endpoint", values_to = ".value") %>%
     dplyr::group_by( !!!qs1 ) %>%
-    dplyr::summarise(m = mean(.value)) %>%
+    dplyr::summarise(m = mean(.data$.value)) %>%
     dplyr::arrange(!!!qs1) %>%
     dplyr::group_by(!!!qs2) %>%
     dplyr::mutate(
-      .axis_from = dplyr::lag(.axis),
-      .axis_to = .axis,
-      .x = (.axis_from + .axis_to)/2,
-      .y = (m + dplyr::lag(m))/2,
-      .slope = (m - dplyr::lag(m)) / (.axis_to - .axis_from - cw)
+      .axis_from = dplyr::lag(.data$.axis),
+      .axis_to = .data$.axis,
+      .x = (.data$.axis_from + .data$.axis_to)/2,
+      .y = (.data$m + dplyr::lag(.data$m))/2,
+      .slope = (.data$m - dplyr::lag(.data$m)) / (.data$.axis_to - .data$.axis_from - cw)
     ) %>%
     dplyr::ungroup() %>%
-    dplyr::filter(!is.na(.axis_from)) %>%
-    dplyr::select(one_of(names(d), ".axis_from", ".axis_to", ".x", ".y", ".slope")) %>%
+    dplyr::filter(!is.na(.data$.axis_from)) %>%
+    dplyr::select(dplyr::one_of(names(d), ".axis_from", ".axis_to", ".x", ".y", ".slope")) %>%
     as.data.frame(stringsAsFactors=FALSE)
   
   invisible(rval)
