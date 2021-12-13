@@ -1,7 +1,5 @@
 man-roxygen
-.travis.yml
 ^.*\.Rproj$
 ^\.Rproj\.user$
 README.Rmd
 Makefile
-appveyor.yml
