@@ -20,5 +20,6 @@ Suggests:
 License: MIT + file LICENSE
 LazyLoad: yes
 LazyData: yes
+Config/testthat/edition: 3
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
