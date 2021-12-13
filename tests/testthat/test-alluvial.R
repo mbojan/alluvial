@@ -30,6 +30,7 @@ test_that("alluvial() returns proper value", {
 
 test_that("alluvial() produces a proper plot", {
   skip_on_cran()
+  skip_on_ci()
   d <- data.frame(
     x1=rep(letters[1:2], 2),
     x2=rep(letters[1:2], each=2),
