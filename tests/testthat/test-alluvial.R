@@ -6,7 +6,11 @@ test_that("Character vectors in data do not trigger warnings", {
     x2=rep(letters[1:2], each=2),
     freq=1:4
   )
-  expect_silent( alluvial(d[,1:2], freq=d$freq) )
+  expect_silent({
+    pdf(NULL)
+    alluvial(d[,1:2], freq=d$freq)
+    dev.off()
+  } )
 })
 
 
@@ -19,7 +23,9 @@ test_that("alluvial() returns proper value", {
     x2=rep(letters[1:2], each=2),
     freq=1:4
   )
+  pdf(NULL)
   expect_snapshot_value(alluvial(d[,1:2], freq=d$freq), style = "deparse")
+  dev.off()
 })
 
 test_that("alluvial() produces a proper plot", {
