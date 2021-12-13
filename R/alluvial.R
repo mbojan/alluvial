@@ -248,23 +248,27 @@ alluvial <- function( ..., freq,
     names = names(d)
   )
   # alluvium midpoints
+  qs1 <- c(as.list(names(d)), list(".axis")) %>%
+    lapply(as.name)
+  qs2 <- as.list(names(d)) %>%
+    lapply(as.name)
+  
   rval$alluvium_midpoints <- rval$endpoints %>%
     tidyr::pivot_longer(one_of(".bottom", ".top"), names_to = ".endpoint", values_to = ".value") %>%
-    dplyr::group_by_( .dots=c(names(d), ".axis")) %>%
-    dplyr::summarise_(.dots = list(m = ~mean(.value))) %>%
-    dplyr::arrange_(.dots=c(names(d), ".axis")) %>%
-    dplyr::group_by_( .dots = names(d) ) %>%
-    dplyr::mutate_(.dots=list(
-      .axis_from = ~dplyr::lag(.axis),
-      .axis_to = ".axis",
-      .x = ~(.axis_from + .axis_to)/2,
-      .y = ~(m + dplyr::lag(m))/2,
-      .slope = ~ (m - dplyr::lag(m)) / (.axis_to - .axis_from - cw)
-    )
+    dplyr::group_by( !!!qs1 ) %>%
+    dplyr::summarise(m = mean(.value)) %>%
+    dplyr::arrange(!!!qs1) %>%
+    dplyr::group_by(!!!qs2) %>%
+    dplyr::mutate(
+      .axis_from = dplyr::lag(.axis),
+      .axis_to = .axis,
+      .x = (.axis_from + .axis_to)/2,
+      .y = (m + dplyr::lag(m))/2,
+      .slope = (m - dplyr::lag(m)) / (.axis_to - .axis_from - cw)
     ) %>%
     dplyr::ungroup() %>%
-    dplyr::filter_(~!is.na(.axis_from)) %>%
-    dplyr::select_(.dots=c(names(d), ".axis_from", ".axis_to", ".x", ".y", ".slope")) %>%
+    dplyr::filter(!is.na(.axis_from)) %>%
+    dplyr::select(one_of(names(d), ".axis_from", ".axis_to", ".x", ".y", ".slope")) %>%
     as.data.frame(stringsAsFactors=FALSE)
   
   invisible(rval)
