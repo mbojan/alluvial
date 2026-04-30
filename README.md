@@ -1,5 +1,5 @@
 
-# R package for drawing alluvial diagrams
+# R package for drawing alluvial diagrams <img src="man/figures/logo.png" align="right" width="20%"/>
 
 <!-- badges: start -->
 

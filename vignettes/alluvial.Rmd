@@ -25,6 +25,85 @@ knitr::opts_chunk$set(
 ```
 
 
+```{r logo, eval=FALSE, include=FALSE}
+library(hexSticker)
+library(dplyr)
+
+k <- ggokabeito::palette_okabe_ito(1:8)
+r <- col2rgb(k)
+d <- bind_cols(
+  col = k,
+  rgb2hsv(r) |> 
+    t() |> 
+    as.data.frame()
+) |> 
+  mutate(
+    n = 1,
+    v2 = rep(1:2, each = 4),
+    v3 = rep(1:2, 4)
+  )
+# 
+# alluvial(
+#   d[,c("v2", "v3", "col")], 
+#   freq=d$n, 
+#   col = d$col,
+#   alpha = 0.9,
+#   blocks = FALSE,
+#   ann = FALSE
+# )
+
+
+# colorspace::hclplot(k)
+
+
+# 
+# pie(d$n, col = d$col)
+# 
+# alluvial(d[,1], freq=d$n)
+# 
+# p <- ggplotify::as.ggplot( 
+#   ~ alluvial(
+#     select(d, Temperature, Luminance, Color),
+#     freq=d$n,
+#     col = d$col,
+#     alpha=0.9,
+#     blocks = FALSE,
+#     ann = FALSE
+#   )
+# )
+
+p <- ggplotify::as.ggplot( 
+  ~ alluvial(
+    d[,c("v2", "v3", "col")], 
+    freq=d$n, 
+    col = d$col,
+    alpha = 0.9,
+    blocks = FALSE,
+    ann = FALSE
+  )
+)
+
+sticker(
+  p + ggplot2::theme_void() +
+    theme_transparent() +
+    ggplot2::theme(legend.position="none"),
+  p_size=20,
+  p_x = 1,
+  p_y = 1.6,
+  s_x = 1,
+  s_y= 0.9,
+  s_width=1.3,
+  s_height=1,
+  package = "alluvial",
+  p_color = "gray90",
+  h_fill = "gray67",
+  h_color = "black",
+  url = "http://mbojan.github.io/alluvial/",
+  u_size = 4,
+  filename = "man/figures/logo.png",
+  dpi = 300
+)
+```
 
 
 # What is alluvial diagram?

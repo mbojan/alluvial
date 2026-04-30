@@ -22,7 +22,7 @@ knitr::render_markdown(strict=FALSE)
 
 
 
-# R package for drawing alluvial diagrams
+# R package for drawing alluvial diagrams <img src="man/figures/logo.png" align="right" width="20%"/>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/mbojan/alluvial/workflows/R-CMD-check/badge.svg)](https://github.com/mbojan/alluvial/actions)
