@@ -15,7 +15,8 @@ alluvial(
   gap.width = 0.05,
   xw = 0.1,
   cw = 0.1,
-  blocks = TRUE,
+  strata = "box",
+  blocks = NULL,
   ordering = NULL,
   axis_labels = NULL,
   mar = c(2, 1, 1, 1),
@@ -49,7 +50,15 @@ alluvial(
 
 \item{cw}{numeric, width of the category axis}
 
-\item{blocks}{logical, whether to use blocks to tie the flows together at each category, versus contiguous ribbons (also admits character value "bookends")}
+\item{strata}{character scalar or vector controlling how each category axis
+is rendered. \code{"box"}: a filled rectangle per category.
+\code{"stripes"}: contiguous xspline ribbons per alluvium passing through
+the axis. \code{"none"}: nothing drawn at this axis. A scalar is recycled
+to all axes; a vector of length equal to the number of axes controls each
+axis individually. Also accepts the output of
+\code{\link{strata_bookends}}.}
+
+\item{blocks}{Deprecated. Use \code{strata} instead.}
 
 \item{ordering}{list of numeric vectors allowing to reorder the alluvia on each axis separately, see Examples}
 
@@ -140,15 +149,15 @@ alluvial(tit3d[,1:3], freq=tit3d$Freq, alpha=1, xw=0.2,
          layer = tit3d$Sex != "Female",
          border="white", ordering=ord)
 
-# Possible blocks options
-for (blocks in c(TRUE, FALSE, "bookends")) {
-    
+# Possible strata options
+for (s in list("box", "stripes", "none", strata_bookends())) {
+
     # Elaborate alluvial diagram from main examples file
     alluvial( tit[, 1:4], freq = tit$Freq, border = NA,
               hide = tit$Freq < quantile(tit$Freq, .50),
               col = ifelse( tit$Class == "3rd" & tit$Sex == "Male",
                             "red", "gray" ),
-              blocks = blocks )
+              strata = s )
 }
 
 

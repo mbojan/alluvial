@@ -35,15 +35,15 @@ alluvial(tit3d[,1:3], freq=tit3d$Freq, alpha=1, xw=0.2,
          layer = tit3d$Sex != "Female",
          border="white", ordering=ord)
 
-# Possible blocks options
-for (blocks in c(TRUE, FALSE, "bookends")) {
-    
+# Possible strata options
+for (s in list("box", "stripes", "none", strata_bookends())) {
+
     # Elaborate alluvial diagram from main examples file
     alluvial( tit[, 1:4], freq = tit$Freq, border = NA,
               hide = tit$Freq < quantile(tit$Freq, .50),
               col = ifelse( tit$Class == "3rd" & tit$Sex == "Male",
                             "red", "gray" ),
-              blocks = blocks )
+              strata = s )
 }
 
 
