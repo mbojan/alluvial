@@ -1,0 +1,9 @@
+pandoc: 3.8.3
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  alluvial: alluvial.html
+last_built: 2026-04-30T13:25Z
+urls:
+  reference: https://mbojan.github.io/alluvial/reference
+  article: https://mbojan.github.io/alluvial/articles
