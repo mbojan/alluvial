@@ -14,7 +14,7 @@ library(dplyr)
 knitr::opts_chunk$set(
   fig.width=8,
   fig.height=6,
-  fig.path = "tools/"
+  fig.path = "man/figures/"
 )
 
 knitr::render_markdown(strict=FALSE)

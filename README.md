@@ -12,11 +12,11 @@ version](http://www.r-pkg.org/badges/version/alluvial)](https://cran.r-project.o
 
 What are alluvial diagrams? See for example:
 
--   [Wikipedia](http://en.wikipedia.org/wiki/Alluvial_diagram)
--   My [blog post](http://bc.bojanorama.pl/2014/03/alluvial-diagrams)
-    showing-off this package
--   Some discussion on
-    [CrossValidated](http://stats.stackexchange.com/questions/12029/is-it-possible-to-create-parallel-sets-plot-using-r)
+- [Wikipedia](http://en.wikipedia.org/wiki/Alluvial_diagram)
+- My [blog post](http://bc.bojanorama.pl/2014/03/alluvial-diagrams)
+  showing-off this package
+- Some discussion on
+  [CrossValidated](http://stats.stackexchange.com/questions/12029/is-it-possible-to-create-parallel-sets-plot-using-r)
 
 This package use base R **graphics** (R Core Team 2021) package. For
 Grammar of Graphics implementation see
@@ -56,7 +56,7 @@ alluvial(
   )
 ```
 
-![](tools/alluvial-1.png)<!-- -->
+![](man/figures/alluvial-1.png)<!-- -->
 
 Alluvial diagram for multiple time series / cross-sectional data based
 on `alluvial::Refugees` data made with `alluvial_ts()`.
@@ -85,7 +85,7 @@ alluvial_ts(Refugees, wave = .3, ygap = 5, col = cols, plotdir = 'centred', alph
             title = "UNHCR-recognised refugees\nTop 10 countries (2003-13)\n")
 ```
 
-![](tools/alluvial_ts-1.png)<!-- -->
+![](man/figures/alluvial_ts-1.png)<!-- -->
 
 ## Installation
 
@@ -103,7 +103,8 @@ remotes::install_github("mbojan/alluvial", build_vignettes=TRUE)
 
 ## References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-ggalluvial-article" class="csl-entry">
 
