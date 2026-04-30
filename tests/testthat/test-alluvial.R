@@ -28,6 +28,77 @@ test_that("alluvial() returns proper value", {
   dev.off()
 })
 
+test_that("strata = 'stripes' runs without error", {
+  d <- data.frame(
+    x1 = rep(letters[1:2], 2),
+    x2 = rep(letters[1:2], each = 2),
+    freq = 1:4
+  )
+  expect_silent({
+    pdf(NULL)
+    alluvial(d[, 1:2], freq = d$freq, strata = "stripes")
+    dev.off()
+  })
+})
+
+test_that("strata = 'none' runs without error", {
+  d <- data.frame(
+    x1 = rep(letters[1:2], 2),
+    x2 = rep(letters[1:2], each = 2),
+    freq = 1:4
+  )
+  expect_silent({
+    pdf(NULL)
+    alluvial(d[, 1:2], freq = d$freq, strata = "none")
+    dev.off()
+  })
+})
+
+test_that("strata = strata_bookends() runs without error", {
+  d <- data.frame(
+    x1 = rep(letters[1:2], 2),
+    x2 = rep(letters[1:2], each = 2),
+    freq = 1:4
+  )
+  expect_silent({
+    pdf(NULL)
+    alluvial(d[, 1:2], freq = d$freq, strata = strata_bookends())
+    dev.off()
+  })
+})
+
+test_that("blocks = TRUE triggers deprecation warning", {
+  d <- data.frame(
+    x1 = rep(letters[1:2], 2),
+    x2 = rep(letters[1:2], each = 2),
+    freq = 1:4
+  )
+  expect_warning(
+    {
+      pdf(NULL)
+      alluvial(d[, 1:2], freq = d$freq, blocks = TRUE)
+      dev.off()
+    },
+    "deprecated"
+  )
+})
+
+test_that("blocks = 'bookends' triggers deprecation warning and runs", {
+  d <- data.frame(
+    x1 = rep(letters[1:2], 2),
+    x2 = rep(letters[1:2], each = 2),
+    freq = 1:4
+  )
+  expect_warning(
+    {
+      pdf(NULL)
+      alluvial(d[, 1:2], freq = d$freq, blocks = "bookends")
+      dev.off()
+    },
+    "deprecated"
+  )
+})
+
 test_that("alluvial() produces a proper plot", {
   skip_on_cran()
   skip_on_ci()

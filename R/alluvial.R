@@ -12,7 +12,14 @@
 #' @param gap.width numeric, relative width of inter-category gaps
 #' @param xw numeric, the distance from the set axis to the control points of the xspline
 #' @param cw numeric, width of the category axis
-#' @param blocks logical, whether to use blocks to tie the flows together at each category, versus contiguous ribbons (also admits character value "bookends")
+#' @param strata character scalar or vector controlling how each category axis
+#'   is rendered. \code{"box"}: a filled rectangle per category.
+#'   \code{"stripes"}: contiguous xspline ribbons per alluvium passing through
+#'   the axis. \code{"none"}: nothing drawn at this axis. A scalar is recycled
+#'   to all axes; a vector of length equal to the number of axes controls each
+#'   axis individually. Also accepts the output of
+#'   \code{\link{strata_bookends}}.
+#' @param blocks Deprecated. Use \code{strata} instead.
 #' @param ordering list of numeric vectors allowing to reorder the alluvia on each axis separately, see Examples
 #' @param axis_labels character, labels of the axes, defaults to variable names in the data
 #' @param mar numeric, plot margins as in \code{\link{par}}
@@ -64,7 +71,8 @@
 alluvial <- function( ..., freq,
                      col="gray", border=0, layer, hide=FALSE, alpha=0.5,
                      gap.width=0.05, xw=0.1, cw=0.1,
-                     blocks = TRUE,
+                     strata = "box",
+                     blocks = NULL,
                      ordering=NULL,
                      axis_labels=NULL,
                      mar = c(2, 1, 1, 1),
@@ -106,17 +114,28 @@ alluvial <- function( ..., freq,
   # convert character vectors in data to factors
   isch <- sapply(d, is.character)
   d[isch] <- lapply(d[isch], as.factor)
-  # Convert blocks to vector
-  if (length(blocks) == 1)
-  {
-    blocks <- if (!is.na(as.logical(blocks)))
-    {
-      rep(blocks, np)
-    } else if (blocks == "bookends")
-    {
-      c(TRUE, rep(FALSE, np - 2), TRUE)
+  # Deprecation shim: translate old blocks argument to strata
+  if (!is.null(blocks)) {
+    .Deprecated(msg = paste0(
+      "`blocks` is deprecated; use `strata` instead.\n",
+      "  TRUE -> \"box\", FALSE -> \"stripes\", \"bookends\" -> strata_bookends()"
+    ))
+    strata <- if (identical(blocks, "bookends")) {
+      strata_bookends()
+    } else {
+      ifelse(as.logical(blocks), "box", "stripes")
     }
   }
+  # Expand strata to a per-axis character vector
+  if (is.function(strata)) {
+    strata <- strata(np)
+  } else if (length(strata) == 1) {
+    strata <- rep(strata, np)
+  }
+  if (length(strata) != np)
+    stop("`strata` must have length 1 or ", np, ", has ", length(strata))
+  if (!all(strata %in% c("box", "stripes", "none")))
+    stop('`strata` values must be "box", "stripes", or "none"')
   # Axis labels
   if(is.null(axis_labels)) {
     axis_labels <- names(d)
@@ -176,17 +195,17 @@ alluvial <- function( ..., freq,
              col=p$col[i], border=p$border[i])
     }
   }
-  # Category blocks with labels
+  # Category strata with labels
   for(j in seq_along(dd))
   {
     ax <- lapply(split(dd[[j]], d[,j]), range)
-    if (blocks[j])
+    if (strata[j] == "box")
     {
       for(k in seq_along(ax))
       {
         rect( j-cw, ax[[k]][1], j+cw, ax[[k]][2] )
       }
-    } else
+    } else if (strata[j] == "stripes")
     {
       for (i in ind)
       {
@@ -200,6 +219,7 @@ alluvial <- function( ..., freq,
                 open = FALSE, col = p$col[i], border = p$border[i])
       }
     }
+    # "none": draw nothing
     for(k in seq_along(ax))
     {
       if(ann) text( j, mean(ax[[k]]), labels=names(ax)[k], cex=cex)

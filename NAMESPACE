@@ -2,6 +2,7 @@
 
 export(alluvial)
 export(alluvial_ts)
+export(strata_bookends)
 importFrom(dplyr,"%>%")
 importFrom(dplyr,.data)
 importFrom(dplyr,arrange_)
