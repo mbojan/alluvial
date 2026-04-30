@@ -4,3 +4,6 @@ man-roxygen
 README.Rmd
 Makefile
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
