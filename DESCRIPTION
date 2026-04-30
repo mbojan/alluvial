@@ -9,7 +9,7 @@ Authors@R: c(
     )
 Description: Creating alluvial diagrams (also known as parallel sets plots) for multivariate
   and time series-like data.
-URL: https://mbojan.github.io/alluvial/
+URL: http://mbojan.github.io/alluvial/
 BugReports: https://github.com/mbojan/alluvial/issues
 Imports: dplyr, tidyr
 Suggests:
