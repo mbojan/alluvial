@@ -1,4 +1,15 @@
-# 0.2-0
+# alluvial 0.3-0
+
+## Breaking / deprecated
+
+- `alluvial()` gains a new `strata` argument replacing the old `blocks` argument.
+  Values are character: `"box"` (was `blocks=TRUE`), `"stripes"` (was `blocks=FALSE`),
+  `"none"` (new). The `"bookends"` shorthand is replaced by the helper
+  function `strata_bookends()`. The old `blocks` argument still works but
+  now emits a deprecation warning.
+
+
+# alluvial 0.2-0
 
 ## New features
 
