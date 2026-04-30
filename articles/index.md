@@ -3,4 +3,4 @@
 ### All vignettes
 
 - [Creating Alluvial
-  Diagrams](https://mbojan.github.io/alluvial/articles/alluvial.md):
+  Diagrams](http://mbojan.github.io/alluvial/articles/alluvial.md):

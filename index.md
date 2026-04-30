@@ -18,7 +18,7 @@ Read 2020; Brunson 2020).
 Alluvial diagram of
 [`datasets::Titanic`](https://rdrr.io/r/datasets/Titanic.html) data made
 with
-[`alluvial()`](https://mbojan.github.io/alluvial/reference/alluvial.md).
+[`alluvial()`](http://mbojan.github.io/alluvial/reference/alluvial.md).
 Notice how each category block becomes a stacked barchart showing
 relative frequency of survivors.
 
@@ -55,9 +55,9 @@ alluvial(
 
 Alluvial diagram for multiple time series / cross-sectional data based
 on
-[`alluvial::Refugees`](https://mbojan.github.io/alluvial/reference/Refugees.md)
+[`alluvial::Refugees`](http://mbojan.github.io/alluvial/reference/Refugees.md)
 data made with
-[`alluvial_ts()`](https://mbojan.github.io/alluvial/reference/alluvial_ts.md).
+[`alluvial_ts()`](http://mbojan.github.io/alluvial/reference/alluvial_ts.md).
 
 ``` r
 

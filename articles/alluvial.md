@@ -9,7 +9,7 @@ Observations are represented with *alluvia* (sing. “alluvium”) spanning
 across all the axes.
 
 You create alluvial diagrams with function
-[`alluvial()`](https://mbojan.github.io/alluvial/reference/alluvial.md).
+[`alluvial()`](http://mbojan.github.io/alluvial/reference/alluvial.md).
 Let us use `Titanic` dataset as an example. As it is a `table`, we need
 to convert it to a data frame
 
@@ -124,7 +124,7 @@ alluvial(tit3d[,1:3], freq=tit3d$n)
 ## Customizing
 
 There are several ways to customize alluvial diagrams with
-[`alluvial()`](https://mbojan.github.io/alluvial/reference/alluvial.md)
+[`alluvial()`](http://mbojan.github.io/alluvial/reference/alluvial.md)
 the following sections illustrate probably most common usecases.
 
 ### Customizing colors
@@ -187,7 +187,7 @@ You can see the gaps e.g. on the “Yes” and “No” category blocks on the
 
 If you would rather omit these rows from the plot alltogether (i.e. no
 gaps), you need to filter your data before it is used by
-[`alluvial()`](https://mbojan.github.io/alluvial/reference/alluvial.md).
+[`alluvial()`](http://mbojan.github.io/alluvial/reference/alluvial.md).
 
 #### Changing “layers”
 
@@ -259,7 +259,7 @@ Consequently, in the example above, `Survived == "No"` is ordered after
 #### Adjusting vertical order of categories
 
 By default
-[`alluvial()`](https://mbojan.github.io/alluvial/reference/alluvial.md)
+[`alluvial()`](http://mbojan.github.io/alluvial/reference/alluvial.md)
 orders the values on each axis in an alphabetic order. This happens
 irrespectively of the ordering of observations in the plotted dataset.
 It is possible to override the default ordering by transforming the
@@ -293,7 +293,7 @@ d
     ## 8 #FF7F00         hot      dark orange 1
 
 Plotting it with
-[`alluvial()`](https://mbojan.github.io/alluvial/reference/alluvial.md)
+[`alluvial()`](http://mbojan.github.io/alluvial/reference/alluvial.md)
 with default settings will give:
 
 ``` r

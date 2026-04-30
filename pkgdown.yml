@@ -3,7 +3,7 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   alluvial: alluvial.html
-last_built: 2026-04-30T13:25Z
+last_built: 2026-04-30T13:26Z
 urls:
-  reference: https://mbojan.github.io/alluvial/reference
-  article: https://mbojan.github.io/alluvial/articles
+  reference: http://mbojan.github.io/alluvial/reference
+  article: http://mbojan.github.io/alluvial/articles

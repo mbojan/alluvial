@@ -7,9 +7,9 @@ CRAN release: 2016-09-09
 ### New features
 
 - There is a vignette
-  [`vignette("alluvial", package="alluvial")`](https://mbojan.github.io/alluvial/articles/alluvial.md)
+  [`vignette("alluvial", package="alluvial")`](http://mbojan.github.io/alluvial/articles/alluvial.md)
   illustrating basic usage of
-  [`alluvial()`](https://mbojan.github.io/alluvial/reference/alluvial.md).
+  [`alluvial()`](http://mbojan.github.io/alluvial/reference/alluvial.md).
   The vignette needs `dplyr` package so it is now `Suggested`.
 
 ### Minor updates
