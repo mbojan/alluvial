@@ -158,4 +158,16 @@ x <- alluvial( tit2d[,1:2], freq=tit2d$Freq, xw=0.0, alpha=0.8,
           layer = tit2d$Survived != "Yes" )
 points( rep(1, 16), x$endpoints[[1]], col="green")
 points( rep(2, 16), x$endpoints[[2]], col="blue")
+
+
+# Segment-level aesthetics
+col_mat <- cbind(
+  as.numeric(tit$Class),
+  as.numeric(tit$Sex) + 4,
+  as.numeric(tit$Age) + 6
+)
+alpha_mat <- t(replicate(c(1:3 / 4), n = nrow(tit)))
+alluvial( tit[,1:4], freq=tit$Freq,
+          border = ifelse(tit$Class == "Crew", "darkgray", NA),
+          col=col_mat, alpha=alpha_mat )
 }
