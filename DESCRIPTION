@@ -23,5 +23,7 @@ LazyLoad: yes
 LazyData: yes
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.3
 Encoding: UTF-8
+Depends: 
+    R (>= 3.5)
