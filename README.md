@@ -13,7 +13,8 @@ version](http://www.r-pkg.org/badges/version/alluvial)](https://cran.r-project.o
 What are alluvial diagrams? See for example:
 
 - [Wikipedia](http://en.wikipedia.org/wiki/Alluvial_diagram)
-- My [blog post](http://bc.bojanorama.pl/2014/03/alluvial-diagrams)
+- My [blog
+  post](https://blog.michalbojanowski.com/2014/03/27/what-is-alluvial/)
   showing-off this package
 - Some discussion on
   [CrossValidated](http://stats.stackexchange.com/questions/12029/is-it-possible-to-create-parallel-sets-plot-using-r)
@@ -55,6 +56,9 @@ alluvial(
     blocks=FALSE
   )
 ```
+
+    ## Warning in alluvial(select(tit, Survived, Sex, Age, Class), freq = tit$n, : `blocks` is deprecated; use `strata` instead.
+    ##   TRUE -> "box", FALSE -> "stripes", "bookends" -> strata_bookends()
 
 ![](man/figures/alluvial-1.png)<!-- -->
 
@@ -103,8 +107,7 @@ remotes::install_github("mbojan/alluvial", build_vignettes=TRUE)
 
 ## References
 
-<div id="refs" class="references csl-bib-body hanging-indent"
-entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 
 <div id="ref-ggalluvial-article" class="csl-entry">
 
