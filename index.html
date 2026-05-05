@@ -63,7 +63,7 @@
 <p>What are alluvial diagrams? See for example:</p>
 <ul>
 <li><a href="http://en.wikipedia.org/wiki/Alluvial_diagram" class="external-link">Wikipedia</a></li>
-<li>My <a href="http://bc.bojanorama.pl/2014/03/alluvial-diagrams" class="external-link">blog post</a> showing-off this package</li>
+<li>My <a href="https://blog.michalbojanowski.com/2014/03/27/what-is-alluvial/" class="external-link">blog post</a> showing-off this package</li>
 <li>Some discussion on <a href="http://stats.stackexchange.com/questions/12029/is-it-possible-to-create-parallel-sets-plot-using-r" class="external-link">CrossValidated</a>
 </li>
 </ul>
@@ -139,9 +139,11 @@
 <span>    alpha <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>    blocks<span class="op">=</span><span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="do">## Warning in alluvial(select(tit, Survived, Sex, Age, Class), freq = tit$n, : `blocks` is deprecated; use `strata` instead.</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="do">##   TRUE -&gt; "box", FALSE -&gt; "stripes", "bookends" -&gt; strata_bookends()</span></span></code></pre></div>
 <p><img src="reference/figures/alluvial-1.png"><!-- --></p>
 <p>Alluvial diagram for multiple time series / cross-sectional data based on <code><a href="reference/Refugees.html">alluvial::Refugees</a></code> data made with <code><a href="reference/alluvial_ts.html">alluvial_ts()</a></code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Refugees</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr>
@@ -182,7 +184,7 @@
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">39</span><span class="op">)</span> <span class="co"># for nice colours</span></span>
 <span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/hsv.html" class="external-link">hsv</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span>, s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span><span class="op">/</span><span class="fl">15</span>, v <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span><span class="op">/</span><span class="fl">15</span><span class="op">)</span></span>
 <span></span>
@@ -197,16 +199,16 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>Install stable version from CRAN using</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"alluvial"</span><span class="op">)</span></span></code></pre></div>
 <p>or development version from GitHub using <code>remotes::install_github()</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mbojan/alluvial"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-ggalluvial-article" class="csl-entry">
 Brunson, Jason Cory. 2020. “<span class="nocase">ggalluvial</span>: Layered Grammar for Alluvial Plots.” <em>Journal of Open Source Software</em> 5 (49): 2017. <a href="https://doi.org/10.21105/joss.02017" class="external-link uri">https://doi.org/10.21105/joss.02017</a>.
 </div>

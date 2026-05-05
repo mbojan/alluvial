@@ -3,7 +3,8 @@
 What are alluvial diagrams? See for example:
 
 - [Wikipedia](http://en.wikipedia.org/wiki/Alluvial_diagram)
-- My [blog post](http://bc.bojanorama.pl/2014/03/alluvial-diagrams)
+- My [blog
+  post](https://blog.michalbojanowski.com/2014/03/27/what-is-alluvial/)
   showing-off this package
 - Some discussion on
   [CrossValidated](http://stats.stackexchange.com/questions/12029/is-it-possible-to-create-parallel-sets-plot-using-r)
@@ -49,6 +50,11 @@ alluvial(
     alpha = 0.8,
     blocks=FALSE
   )
+```
+
+``` R
+## Warning in alluvial(select(tit, Survived, Sex, Age, Class), freq = tit$n, : `blocks` is deprecated; use `strata` instead.
+##   TRUE -> "box", FALSE -> "stripes", "bookends" -> strata_bookends()
 ```
 
 ![](reference/figures/alluvial-1.png)
