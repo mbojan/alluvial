@@ -43,7 +43,7 @@ alluvial_ts(
 
 \item{wave}{numeric, curve wavyness defined in terms of x axis data range - i.e. bezier point offset. Experiment to get this right}
 
-\item{ygap}{numeric, vertical distance between polygons - a multiple of 10\\% of the mean data value}
+\item{ygap}{numeric, vertical distance between polygons - a multiple of 10\% of the mean data value}
 
 \item{col}{colour, value or vector of length matching the number of unique categories. Individual colours of vector are mapped to categories in alpha-numeric order}
 

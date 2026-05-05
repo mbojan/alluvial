@@ -14,8 +14,8 @@
 #'   \item{n}{Number of respondents with this combination of voting choices.}
 #' }
 #'
-#' Each of the `party*` columns takes one of the following values:
-#' `"PO"`` (Civic Platform / *Platforma Obywatelska*),
+#' Each of the `partyXXXX` columns takes one of the following values:
+#' `"PO"` (Civic Platform / *Platforma Obywatelska*),
 #' `"PiS"` (Law and Justice / *Prawo i Sprawiedliwosc*),
 #' `"PSL"` (Polish People's Party / *Polskie Stronnictwo Ludowe*),
 #' `"Left"` (left-wing parties),

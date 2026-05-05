@@ -13,8 +13,13 @@ A data frame with 51 rows and 4 columns:
 \item{n}{Number of respondents with this combination of voting choices.}
 }
 
-Each of the \verb{party*} columns takes one of the following values:
-\verb{"PO"`` (Civic Platform / *Platforma Obywatelska*), }"PiS"\verb{(Law and Justice / *Prawo i Sprawiedliwosc*),}"PSL"\verb{(Polish People's Party / *Polskie Stronnictwo Ludowe*),}"Left"\verb{(left-wing parties),}"Other"\verb{, or }"not voted"`.
+Each of the \code{partyXXXX} columns takes one of the following values:
+\code{"PO"} (Civic Platform / \emph{Platforma Obywatelska}),
+\code{"PiS"} (Law and Justice / \emph{Prawo i Sprawiedliwosc}),
+\code{"PSL"} (Polish People's Party / \emph{Polskie Stronnictwo Ludowe}),
+\code{"Left"} (left-wing parties),
+\code{"Other"}, or
+\code{"not voted"}.
 }
 \source{
 Polish Panel Study (POLPAN, \url{https://www.polpan.org}),

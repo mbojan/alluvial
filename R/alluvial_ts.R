@@ -5,7 +5,7 @@
 #' 
 #' @param dat data.frame of time-series (or suitable equivalent continuously disaggregated data), with 3 columns (in order: category, time-variable, value) with <= 1 row for each category-time combination
 #' @param wave numeric, curve wavyness defined in terms of x axis data range - i.e. bezier point offset. Experiment to get this right
-#' @param ygap numeric, vertical distance between polygons - a multiple of 10\% of the mean data value
+#' @param ygap numeric, vertical distance between polygons - a multiple of 10% of the mean data value
 #' @param col colour, value or vector of length matching the number of unique categories. Individual colours of vector are mapped to categories in alpha-numeric order
 #' @param lwd numeric, value or vector of length matching the number of unique categories for polygon stroke line width. Individual values of vector are mapped to categories in alpha-numeric order
 #' @param alpha numeric, \[0,1\] polygon fill transparency
