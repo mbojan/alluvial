@@ -1,6 +1,6 @@
 library(dplyr)
 
-Polpan <- here::here("data-raw", "polpan-voting-alluvial-plots.csv") |> 
+Polpan <- here::here("data-raw", "polpan-voting-alluvial-plots.csv.gz") |> 
   read.csv() |> 
   mutate(across(where(is.character), \(x) gsub(" \n", " ", x)))
 
