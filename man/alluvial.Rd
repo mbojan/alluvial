@@ -100,7 +100,7 @@ Drawing alluvial diagrams, also known as parallel set plots.
 }
 \note{
 Please mind that the API is planned to change to be more compatible
-  with \pkg{dplyr} verbs.
+with \pkg{dplyr} verbs.
 }
 \examples{
 # Titanic data

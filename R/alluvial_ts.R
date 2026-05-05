@@ -8,12 +8,12 @@
 #' @param ygap numeric, vertical distance between polygons - a multiple of 10\% of the mean data value
 #' @param col colour, value or vector of length matching the number of unique categories. Individual colours of vector are mapped to categories in alpha-numeric order
 #' @param lwd numeric, value or vector of length matching the number of unique categories for polygon stroke line width. Individual values of vector are mapped to categories in alpha-numeric order
-#' @param alpha numeric, [0,1] polygon fill transparency
+#' @param alpha numeric, \[0,1\] polygon fill transparency
 #' @param plotdir character, string ('up', 'down' or 'centred') giving the vertical alignment of polygon stacks
 #' @param rankup logical, rank polygons on time axes upward by magnitude (largest to smallest) or not
 #' @param lab.cex numeric, category label font size
 #' @param lab.col colour, of category label
-#' @param xmargin numeric [0,1], proportional space for category labels
+#' @param xmargin numeric \[0,1\], proportional space for category labels
 #' @param axis.col colour, of axes
 #' @param axis.cex numeric, font size of x-axis break labels
 #' @param title character, plot title
@@ -22,7 +22,7 @@
 #' @param grid.col colour, of grid axes
 #' @param grid.lwd numeric, line width of grid axes
 #' @param leg.mode logical, draw y-axis scale legend inside largest data point (TRUE default) or alternatively with custom position/value (FALSE)
-#' @param leg.x,leg.y numeric [0,1], x/y positions of legend if leg.mode = FALSE
+#' @param leg.x,leg.y numeric \[0,1\], x/y positions of legend if leg.mode = FALSE
 #' @param leg.cex numeric, legend text size
 #' @param leg.col colour, of legend lines and text
 #' @param leg.lty numeric, code for legend line type

@@ -7,23 +7,19 @@
 \format{
 A data frame with 51 rows and 4 columns:
 \describe{
-  \item{party2007}{Party voted for in the 2007 parliamentary election.}
-  \item{party2011}{Party voted for in the 2011 parliamentary election.}
-  \item{party2015}{Party voted for in the 2015 parliamentary election.}
-  \item{n}{Number of respondents with this combination of voting choices.}
+\item{party2007}{Party voted for in the 2007 parliamentary election.}
+\item{party2011}{Party voted for in the 2011 parliamentary election.}
+\item{party2015}{Party voted for in the 2015 parliamentary election.}
+\item{n}{Number of respondents with this combination of voting choices.}
 }
 
-Each of the `party*` columns takes one of the following values:
-`"PO"`` (Civic Platform / *Platforma Obywatelska*),
-`"PiS"` (Law and Justice / *Prawo i Sprawiedliwosc*),
-`"PSL"` (Polish People's Party / *Polskie Stronnictwo Ludowe*),
-`"Left"` (left-wing parties),
-`"Other"`, or
-`"not voted"`.
+Each of the \verb{party*} columns takes one of the following values:
+\verb{"PO"`` (Civic Platform / *Platforma Obywatelska*), }"PiS"\verb{(Law and Justice / *Prawo i Sprawiedliwosc*),}"PSL"\verb{(Polish People's Party / *Polskie Stronnictwo Ludowe*),}"Left"\verb{(left-wing parties),}"Other"\verb{, or }"not voted"`.
 }
 \source{
-Polish Panel Study (POLPAN), \url{https://www.polpan.org}, 
-and Marta Kołczyńska \url{https://martakolczynska.com/}
+Polish Panel Study (POLPAN, \url{https://www.polpan.org}),
+Marta Kołczyńska (\url{https://martakolczynska.com/})
+and her \href{https://martakolczynska.com/post/polpan-voting-alluvial-plots/}{blog post}.
 }
 \usage{
 data(Polpan)

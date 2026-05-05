@@ -23,8 +23,9 @@
 #' `"not voted"`.
 #'
 #' @source
-#' Polish Panel Study (POLPAN), \url{https://www.polpan.org}, 
-#' and Marta Kołczyńska \url{https://martakolczynska.com/}
+#' Polish Panel Study (POLPAN, \url{https://www.polpan.org}),
+#' Marta Kołczyńska (\url{https://martakolczynska.com/}) 
+#' and her [blog post](https://martakolczynska.com/post/polpan-voting-alluvial-plots/).
 #' 
 #' @examples
 #' # color palette

@@ -22,8 +22,9 @@ License: MIT + file LICENSE
 LazyLoad: yes
 LazyData: yes
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0
+Config/roxygen2/markdown: TRUE
 VignetteBuilder: knitr
-RoxygenNote: 7.3.3
 Encoding: UTF-8
 Depends: 
     R (>= 3.5)
